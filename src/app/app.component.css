@@ -1,0 +1,125 @@
+/* Forms */
+.forms{
+    min-height: 100vh;
+}
+
+.register{
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(92, 77, 66, 0.8)), to(rgba(92, 77, 66, 0.8))), url("../assets/images/bg-register.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.3) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/images/bg-register.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form-holder{
+    background-color: #FFF;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.form-holder *{
+    
+}
+
+.form-holder div{
+    margin: 10px 0px;
+}
+
+.form-title{
+    background-color: #d62222;
+    color: #FFF;
+    padding: 10px 0px;
+    border-radius: 15px 15px 0px 0px;
+}
+
+.form-body{
+
+}
+
+.form-body *{
+    margin: 10px 0px;
+}
+
+.form-body *:not(label):not(select){
+    border: unset;
+    border-bottom: 1px solid #d62222;
+    padding: 5px 0px;
+}
+
+.form-body label{
+    text-align: center;
+}
+
+.register-buttons input{
+    border: none;
+    font-weight: bold;
+    padding: 10px 0px;
+}
+
+.register-buttons input:nth-child(1){
+    background-color: #d62222;
+    color: #FFF;
+    border-bottom-left-radius: 15px;
+}
+
+.register-buttons input:nth-child(2){
+    border-bottom-right-radius: 15px;
+}
+
+.login{
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(92, 77, 66, 0.8)), to(rgba(92, 77, 66, 0.8))), url("../assets/images/bg-register.jpg");
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.3) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/images/bg-register.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.login-button input{
+    border: none;
+    font-weight: bold;
+    padding: 10px 0px;
+    background-color: #d62222;
+    color: #FFF;
+    border-radius: 0px 0px 15px 15px;
+}
+
+
+/*Main Page*/
+.logo-image{
+    width: 100%;
+    height: auto;
+}
+
+#categories{
+   overflow: hidden; 
+}
+
+.category-card{
+    max-height: 350px;
+}
+
+.category-card img{
+    width: 100%;
+    height: 350px;
+}
+
+.category-banner{
+    position: absolute;
+    background-color: rgba(111, 80, 80, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.category-banner_title{
+    position: absolute;
+    width: unset;
+    transform: translate(-50%, -25%);
+    top: 50%;
+    left: 50%;
+}
+
+/* Footer */
+.footer{
+    background-color: #1a1a1a;
+}

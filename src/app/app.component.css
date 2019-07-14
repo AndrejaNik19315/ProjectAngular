@@ -90,8 +90,9 @@
     height: auto;
 }
 
-#categories{
-   overflow: hidden; 
+.categories{
+    overflow: hidden;
+    max-width: 100% !important;
 }
 
 .category-card{

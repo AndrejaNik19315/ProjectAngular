@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" (scroll)="onWindowScroll($event);">
   <div class="container">
-    <a class="navbar-brand js-scroll-trigger" href="#">Home</a>
+    <a class="navbar-brand js-scroll-trigger" routerLink="/">Home</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -16,13 +16,13 @@
           <a class="nav-link js-scroll-trigger" [ngx-scroll-to]="'#contact'">Contact</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#">Login</a>
+          <a class="nav-link js-scroll-trigger" routerLink="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#">Register</a>
+          <a class="nav-link js-scroll-trigger" routerLink="/register">Register</a>
         </li>
         <li *ngIf="loggedIn"  class="nav-item">
-          <a class="nav-link js-scroll-trigger" href="#">Logout</a>
+          <a class="nav-link js-scroll-trigger" routerLink="/logout">Logout</a>
         </li>
       </ul>
     </div>

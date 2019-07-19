@@ -1,6 +1,7 @@
-import { element } from 'protractor';
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +10,9 @@ import * as $ from 'jquery';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService:Title) {
+    this.titleService.setTitle('Divinity - Homepage');
+  }
 
   ngOnInit() {
   }

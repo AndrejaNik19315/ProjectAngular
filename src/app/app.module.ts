@@ -1,6 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,12 @@ import { ContactComponent } from './homepage/contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+
+const routes: Routes = [
+  {path: '', component: HomepageComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent}
+];
 
 @NgModule({
   declarations: [
@@ -32,9 +39,12 @@ import { LoginComponent } from './login/login.component';
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [
+    Title
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

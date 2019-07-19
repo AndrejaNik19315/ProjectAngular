@@ -1,0 +1,9 @@
+.btn_to-top{
+    z-index: 1000;
+    right: 10px;
+    bottom: 10px;
+    background-color: #d62222;
+    border: 1px solid #000;
+    color: #000;
+    display: none;
+}

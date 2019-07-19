@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { element } from 'protractor';
+import { Component, OnInit, HostListener } from '@angular/core';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.css']
+  styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent implements OnInit {
 
@@ -12,4 +14,22 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
   }
 
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll(e) {
+    $(document).ready(function(){
+      const element = document.getElementById('btn-scrollup');
+      if (window.pageYOffset > 550) {
+        $(element).fadeIn(500);
+      } else{
+        $(element).fadeOut(500);
+      }
+    });
+  }
+
+  toTop(e){
+    e.stopPropagation();
+    if($("html,body").scrollTop() > 0){
+      $("html,body").animate({scrollTop: 0}, 1000);
+    }
+  }
 }

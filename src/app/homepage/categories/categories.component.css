@@ -1,0 +1,81 @@
+.categories{
+    overflow: hidden;
+    max-width: 100% !important;
+}
+
+.category-card{
+    max-height: 350px;
+}
+
+.category-card img{
+    width: 100%;
+    height: 350px;
+}
+
+.category-banner{
+    position: absolute;
+    background-color: rgba(111, 80, 80, 0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.category-banner_title{
+    position: absolute;
+    width: unset;
+    transform: translate(-50%, -25%);
+    top: 50%;
+    left: 50%;
+}
+
+#categories .container-fluid {
+    max-width: 1920px;
+  }
+  
+  #categories .container-fluid .portfolio-box {
+    position: relative;
+    display: block;
+  }
+  
+  #categories .container-fluid .portfolio-box .portfolio-box-caption {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    opacity: 0;
+    color: #fff;
+    background: rgba(48, 41, 41, 0.7);
+    -webkit-transition: opacity 0.25s ease;
+    transition: opacity 0.25s ease;
+    text-align: center;
+  }
+  
+  #categories .container-fluid .portfolio-box .portfolio-box-caption .project-category {
+    font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  #categories .container-fluid .portfolio-box .portfolio-box-caption .project-name {
+    font-size: 1.2rem;
+  }
+  
+  #categories .container-fluid .portfolio-box:hover .portfolio-box-caption {
+    opacity: 1;
+  }
+  

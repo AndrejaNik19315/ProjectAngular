@@ -1,3 +1,23 @@
-<p>
-  Registration Page
-</p>
+<div class="register__form">
+    <div class="register__form--rectangle"></div>
+    <div class="register__form__container">
+      <section class="register-section">
+        <h3 class='form-title text-center position-relative'>Register</h3>
+        <hr class="dark my-8 position-relative"/>
+        <form method='POST' action="#">
+          <div class='container form-wrapper'>
+          <div class='form-body'>
+            <input class="col-12" type="text" name='username' placeholder="Username"/>
+            <input class='col-12' type='email' name='email' placeholder='Email'/>
+            <input class='col-12' type='password' name='password' placeholder='Password'/>
+            <input class="col-12" type="password" name="re-password" placeholder="Repeat Password"/>
+          </div>
+          <div class='register-button'>
+            <input class='col-12' type='submit' name='btnSubmit' value='Register'/>
+          </div>
+          </div>
+        </form>
+      </section>
+      <a class="link-home" routerLink="/"><fa name="fas fa-angle-left fa-2x"></fa></a>
+    </div>
+  </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,6 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {}
+export class AppComponent {
+  
+}

@@ -1,0 +1,96 @@
+input { outline: none; }
+
+.register__form{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../assets/images/bg-register.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+
+.register__form--rectangle{
+    position: fixed;
+    left: -15%;
+    width: 250%;
+    height: 250%;
+    background: #fff;
+    transform: rotate(105deg);
+}
+
+.register-section{
+    float: right;
+    padding: 8em;
+    height: 100%;
+    font-size: 18px;
+    max-width: 800px;
+}
+
+.register-section h3{
+    padding: 10px 0px;
+}
+
+.form-body input{
+    border: none;
+    padding: 5px 0px;
+    margin: 15px 0px;
+    background-color: transparent !important;
+}
+
+.register-button input{
+    color: #fff;
+    background-color: #222;
+    border: none;
+    padding: 5px 0px;
+    margin-top: 10px; 
+}
+
+.register-button input:hover{
+    transition: 0.5s;
+    background-color: #d62222;
+}
+
+.link-home{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #d62222;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+@media (max-width: 1024px) {
+    .register__form--rectangle{
+        top: 0px;
+        left: 0px;
+        transform: rotate(110deg);
+    }
+
+    .register-section{
+        padding: 8em 3em;
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 800px) {
+    .register__form--rectangle{
+        transform: none;
+    }
+
+    .register-section{
+        float: none;
+        padding: 8em 1em;
+        margin: 0px auto;
+    }
+}
+
+@media (max-width: 425px){
+    .link-home{
+        position: absolute;
+        top: 155px;
+        left: 20px;
+    }
+}

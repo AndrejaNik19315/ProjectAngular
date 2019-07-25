@@ -1,0 +1,97 @@
+.search__card input{
+    background-color: transparent;
+    border: unset;
+    border-radius: unset;
+    border-bottom: 1px solid #333;
+    outline-color: none;
+}
+
+.search__card button{
+    background-color: none;
+}
+
+.category__section{
+    background-color: #d62222;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+
+.category__section--gameplay{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_gameplay.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__section--world{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_world.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__section--characters{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_characters.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__section--lore{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_lore.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__section--builds{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_builds.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__section--random{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/thumbnails/thumbnail_random.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.category__content{
+    background-image: url("../../../assets/images/papertexture.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: inherit;
+    box-shadow: 0px 0px 40px 0px rgba(0,0,0,0.75);
+}
+
+.card--background{
+    background-color: transparent;
+    border: none;
+}

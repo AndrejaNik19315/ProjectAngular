@@ -1,17 +1,21 @@
-<section class='forms login page-section'>
-  <form method='POST' action="#">
-  <div class='container form-holder'>
-  <h3 class='form-title text-center mt-0'>Login</h3>
-  <div class='form-body'>
-    <input class='col-12' type='email' name='email' placeholder='Email' value=""/>
-    <input class='col-12' type='password' name='password' placeholder='Password'/>
+<div class="login__form">
+  <div class="login__form--rectangle"></div>
+  <div class="login__form__container">
+    <section class="login-section">
+      <h3 class='form-title text-center position-relative'>Login</h3>
+      <hr class="dark my-8 position-relative"/>
+      <form method='POST' action="#">
+        <div class='container form-wrapper'>
+        <div class='form-body'>
+          <input class='col-12' type='email' name='email' placeholder='Email'/>
+          <input class='col-12' type='password' name='password' placeholder='Password'/>
+        </div>
+        <div class='login-button'>
+          <input class='col-12' type='submit' name='btnSubmit' value='Login'/>
+        </div>
+        </div>
+      </form>
+    </section>
+    <a class="link-home" routerLink="/"><fa name="fas fa-angle-left fa-2x"></fa></a>
   </div>
-  <div class='login-button'>
-    <input class='col-12' type='submit' name='btnSubmit' value='login'/>
-  </div>
-  <div class='row justify-content-md-center'>
-    <div class='mt-2 col-12 alert alert-danger' role='alert'></div>
-  </div>
-  </div>
-  </form>
-</section>
+</div>

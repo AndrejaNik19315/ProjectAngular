@@ -10,7 +10,7 @@ import * as $ from 'jquery';
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(private titleService:Title) {
+  constructor(private titleService: Title) {
     this.titleService.setTitle('Divinity - Homepage');
   }
 

@@ -1,7 +1,9 @@
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { Routes, RouterModule } from '@angular/router';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,12 +17,21 @@ import { ContactComponent } from './homepage/contact/contact.component';
 import { FooterComponent } from './footer/footer.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { environment } from 'src/environments/environment.prod';
+import { CategorypageComponent } from './category/categorypage/categorypage.component';
+import { CategoryComponent } from './category/category.component';
 
-const routes: Routes = [
-  {path: '', component: HomepageComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
-];
+export const firebaseConfig = {
+  firebase: {
+    apiKey: 'AIzaSyABNC1_k-JcpQmbl-ot81njhuMqAmMSLYo',
+    authDomain: 'divinityproject-31d93.firebaseapp.com',
+    databaseURL: 'https://divinityproject-31d93.firebaseio.com',
+    projectId: 'divinityproject-31d93',
+    storageBucket: '',
+    messagingSenderId: '1080292503258',
+    appId: '1:1080292503258:web:e9469267948b9354'
+  }
+}
 
 @NgModule({
   declarations: [
@@ -33,14 +44,18 @@ const routes: Routes = [
     ContactComponent,
     FooterComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    CategorypageComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
     ScrollToModule.forRoot(),
-    RouterModule.forRoot(routes)
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     Title

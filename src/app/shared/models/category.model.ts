@@ -1,4 +1,4 @@
-export class Category{
+export class Category {
     public name: string;
     public imagePath: string;
     public imageAlt: string;

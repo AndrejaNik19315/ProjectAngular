@@ -1,4 +1,4 @@
-import { Category } from './category.model';
+import { Category } from '../../shared/models/category.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

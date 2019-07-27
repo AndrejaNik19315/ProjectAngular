@@ -15,14 +15,27 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" [ngx-scroll-to]="'#contact'">Contact</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link js-scroll-trigger" routerLink="/login">Login</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link js-scroll-trigger" routerLink="/register">Register</a>
         </li>
         <li *ngIf="loggedIn"  class="nav-item">
           <a class="nav-link js-scroll-trigger" routerLink="/logout">Logout</a>
+        </li>
+        <li class="nav-item js-scroll-trigger account">
+            <div class="btn-group">
+                <a type="link" class="btn btn-sm btn-transparent" routerLink="/users/username">Spirit Animal</a>
+                <button type="button" class="btn btn-sm btn-transparent border-left-0 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="sr-only"></span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right account-dropdown">
+                  <a class="dropdown-item" routerLink="/users/edit">Edit Account</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" routerLink="/logout">Logout</a>
+                </div>
+            </div>
         </li>
       </ul>
     </div>

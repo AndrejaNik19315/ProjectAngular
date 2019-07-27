@@ -24,6 +24,12 @@ input { outline: none; }
     padding: 8em;
     height: 100%;
     font-size: 18px;
+    position: relative;
+}
+
+.login-section div{
+    padding: 5px 0px;
+    text-align: center;
 }
 
 .login-section h3{

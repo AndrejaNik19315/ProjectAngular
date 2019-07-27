@@ -24,7 +24,34 @@
   #mainNav .navbar-nav .nav-item .nav-link.active {
     color: #f0c60d !important;
   }
-  
+
+  .btn-transparent{
+    border-radius: unset;
+  }
+
+  .btn-transparent:first-child{
+    padding-left: unset;
+    padding-right: unset; 
+  }
+
+  .btn-transparent:hover{
+    color: #f0c60d !important;
+  }
+
+  .account *{
+    color: #6c757d;
+    font-weight: bold;
+  }
+
+  .account>div{
+    padding: 10px 0px;
+  }
+
+  .account-dropdown a:hover{
+    color: #f0c60d !important;
+    background-color: unset;
+  }
+
   @media (min-width: 992px) {
     #mainNav {
       -webkit-box-shadow: none;
@@ -47,8 +74,37 @@
     #mainNav .navbar-nav .nav-item:last-child .nav-link {
       padding-right: 0;
     }
+    .btn-transparent{
+      border: 1px solid  rgba(255, 255, 255, 0.7);
+      border-radius: unset;
+      color:  rgba(255, 255, 255, 0.7);
+      font-weight: bold;
+    }
+    .btn-transparent:first-child{
+      padding-left: 6px;
+      padding-right: 6px; 
+    }
+    .account{
+      position: relative;
+      bottom: 5px;
+      padding-left: 16px;
+    }
+    .account *{
+      color:rgba(255, 255, 255, 0.7);
+    }
+    .account>div{
+      padding: unset;
+    }
+    .account-dropdown{
+      background: transparent;
+      border-radius: unset;
+    }
+    .account-dropdown a{
+      padding: 0px 5px;
+      font-size: 14px;
+    }
     .navbar-scrolled {
-        background-image: url('../../../assets/images/navMenu.png');
+        background-image: url('../../assets/images/navMenu.png');
         background-size: contain;
         background-repeat: repeat-x;
     }

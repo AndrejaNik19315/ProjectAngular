@@ -25,6 +25,12 @@ input { outline: none; }
     height: 100%;
     font-size: 18px;
     max-width: 800px;
+    position: relative;
+}
+
+.register-section div{
+    padding: 5px 0px;
+    text-align: center;
 }
 
 .register-section h3{

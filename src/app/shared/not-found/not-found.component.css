@@ -1,0 +1,47 @@
+.notfound{
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/bg-notfound.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    height: 100%;
+    overflow: hidden;
+}
+.notfound--rectangle{
+    position: fixed;
+    left: -15%;
+    width: 250%;
+    height: 250%;
+    background: #fff;
+    transform: rotate(105deg);
+}
+.notfound-section{
+    float: right;
+    padding: 12em;
+    height: 100%;
+    font-size: 20px;
+    position: relative;
+}
+
+@media (max-width: 1024px) {
+    .notfound--rectangle{
+        top: 0px;
+        left: 0px;
+        transform: rotate(110deg);
+    }
+
+    .notfound-section{
+        padding: 8em;
+    }
+}
+
+@media (max-width: 800px) {
+    .notfound--rectangle{
+        transform: none;
+    }
+
+    .notfound-section{
+        float: none;
+        padding: 8em 1em;
+    }
+}

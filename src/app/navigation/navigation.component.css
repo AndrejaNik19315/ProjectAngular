@@ -25,10 +25,6 @@
     color: #f0c60d !important;
   }
 
-  .btn-transparent{
-    border-radius: unset;
-  }
-
   .btn-transparent:first-child{
     padding-left: unset;
     padding-right: unset; 
@@ -76,7 +72,6 @@
     }
     .btn-transparent{
       border: 1px solid  rgba(255, 255, 255, 0.7);
-      border-radius: unset;
       color:  rgba(255, 255, 255, 0.7);
       font-weight: bold;
     }
@@ -97,7 +92,6 @@
     }
     .account-dropdown{
       background: transparent;
-      border-radius: unset;
     }
     .account-dropdown a{
       padding: 0px 5px;

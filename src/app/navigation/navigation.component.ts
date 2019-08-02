@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import * as $ from 'jquery';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,11 +8,11 @@ import * as $ from 'jquery';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+  user: any = JSON.parse(localStorage.getItem('user'));
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(e) {

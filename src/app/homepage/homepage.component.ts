@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import * as $ from 'jquery';
+import { AuthService } from '../core/auth.service';
 
 
 @Component({

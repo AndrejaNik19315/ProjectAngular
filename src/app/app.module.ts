@@ -1,9 +1,11 @@
+import { AuthService } from './core/auth.service';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { ReactiveFormsModule } from '@angular/forms';
 import * as firebase from 'firebase/app';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +23,9 @@ import { LoginComponent } from './login/login.component';
 import { environment } from 'src/environments/environment.prod';
 import { CategorypageComponent } from './category/categorypage/categorypage.component';
 import { CategoryComponent } from './category/category.component';
-import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
+import { UserComponent } from './user/user.component';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     LoginComponent,
     CategorypageComponent,
     CategoryComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +51,8 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     ScrollToModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ReactiveFormsModule
   ],
   providers: [
     Title

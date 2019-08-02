@@ -4,18 +4,24 @@
       <section class="register-section">
         <h3 class='form-title text-center position-relative'>Register</h3>
         <hr class="dark my-8 position-relative"/>
-        <form method='POST' action="#">
+        <form [formGroup]="registerForm" (ngSubmit)="tryRegister(registerForm.value)">
           <div class='container form-wrapper'>
           <div class='form-body'>
-            <input class="col-12" type="text" name='username' placeholder="Username"/>
-            <input class='col-12' type='email' name='email' placeholder='Email'/>
-            <input class='col-12' type='password' name='password' placeholder='Password'/>
-            <input class="col-12" type="password" name="re-password" placeholder="Repeat Password"/>
+            <input class="col-12" type="text" name='username' placeholder="Username" formControlName="username"/>
+            <span *ngIf="registerForm.get('username').touched && registerForm.get('username').invalid" class="text-danger">Username out of format</span>
+            <input class='col-12' type='email' name='email' placeholder='Email' formControlName="email"/>
+            <span *ngIf="registerForm.get('email').touched && registerForm.get('email').invalid" class="text-danger">Email is out of format</span>
+            <input class='col-12' type='password' name='password' placeholder='Password' formControlName="password"/>
+            <span *ngIf="registerForm.get('password').touched && registerForm.get('password').invalid" class="text-danger">Password is out of format</span>
+            <input class="col-12" type="password" name="re-password" placeholder="Repeat Password" formControlName="repassword"/>
+            <span *ngIf="registerForm.get('repassword').touched && registerForm.get('repassword').invalid" class="text-danger">Password needs to be repeated</span>
           </div>
           <div class='register-button'>
-            <input class='col-12' type='submit' name='btnSubmit' value='Register'/>
+            <input [ngClass]="registerForm.invalid ? 'btn-disabled' : ''" class='col-12' type='submit' name='btnSubmit' value='Register' [disabled]='registerForm.invalid'/>
           </div>
           </div>
+          <span class="text-danger">{{errorMessage}}</span>
+          <span class="text-success">{{successMessage}}</span>
         </form>
         <div>
           <span>Already have an account? <a routerLink="/login">Login</a></span>

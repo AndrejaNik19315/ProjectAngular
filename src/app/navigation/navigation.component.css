@@ -48,6 +48,10 @@
     background-color: unset;
   }
 
+  a{
+    cursor: pointer;
+  }
+
   @media (min-width: 992px) {
     #mainNav {
       -webkit-box-shadow: none;

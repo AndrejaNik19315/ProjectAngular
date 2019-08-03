@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-login',

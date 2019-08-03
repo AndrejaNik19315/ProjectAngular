@@ -1,4 +1,4 @@
-import { AuthService } from './core/auth.service';
+import { AuthService } from './core/services/auth.service';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
@@ -26,6 +26,7 @@ import { CategoryComponent } from './category/category.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { UserComponent } from './user/user.component';
 import { from } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { from } from 'rxjs';
     ReactiveFormsModule
   ],
   providers: [
-    Title
+    Title,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })

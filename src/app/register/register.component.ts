@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormsModule, Validators, Validator, ValidatorFn
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../core/services/auth.service';
 import * as firebase from 'firebase/app';
 
 @Component({

@@ -1,15 +1,15 @@
 <section id="categories" class='position-relative'>
   <div class="categories container-fluid p-0">
     <div class="row no-gutters">
-      <div class="category-card col-lg-4 col-sm-6" *ngFor="let category of categories">
-        <a class="portfolio-box" routerLink="{{category.link}}">
-          <img src="../assets/{{category.imagePath}}" alt="{{category.imageAlt}}">
+      <div class="category-card col-lg-4 col-sm-6" *ngFor="let item of items">
+        <a class="portfolio-box" routerLink="{{item.payload.doc.data().url_path}}">
+          <img src="../assets/{{item.payload.doc.data().image_path}}" alt="{{item.payload.doc.data().image_alt}}">
           <div class="portfolio-box-caption">
             <div class="project-category text-white-50">
               Category
             </div>
             <div class="project-name">
-              {{category.name}}
+              {{item.payload.doc.data().name}}
             </div>
           </div>
         </a>

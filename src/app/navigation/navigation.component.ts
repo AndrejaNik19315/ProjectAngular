@@ -1,6 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import * as $ from 'jquery';
-import { AuthService } from '../core/auth.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-navigation',

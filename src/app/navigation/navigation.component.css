@@ -43,6 +43,14 @@
     padding: 10px 0px;
   }
 
+  .account img{
+    float: right;
+    max-width: max-content;
+    max-height: max-content;
+    margin-left: 5px;
+    padding: unset;
+  }
+
   .account-dropdown a:hover{
     color: #f0c60d !important;
     background-color: unset;

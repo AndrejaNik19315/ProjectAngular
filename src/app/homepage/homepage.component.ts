@@ -16,6 +16,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit() {
+    //console.log(JSON.parse(localStorage.getItem('user')));
   }
 
   @HostListener('window:scroll', ['$event'])

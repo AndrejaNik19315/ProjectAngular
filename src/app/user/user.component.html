@@ -1,3 +1,25 @@
-<p>
-  user works!
-</p>
+<div class="user__section">
+  <div class="container user__container">
+    <h3 class="text-center">User Profile</h3>
+    <hr/>
+    <div class="row info__container">
+      <div *ngIf="user.photoURL == null" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
+        <img src="../../assets/images/placeholders/placeholder_avatar.jpg" alt="avatar.jpg">
+      </div>
+      <div *ngIf="user.photoURL != null" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
+        <img src="{{user.photoURL}}" alt="avatar.jpg">
+      </div>
+      <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-info">
+        <label for="username">Username</label>
+        <span *ngIf="user.displayName != null">{{user.displayName}}</span>
+        <span *ngIf="user.displayName == null">N/A</span>
+        <label for="email">Email</label>
+        <span>{{user.email}}</span>
+        <label for="dateJoined">Date Joined</label>
+        <span>{{dateJoined.toDateString()}}</span>
+        <hr/>
+        <a *ngIf="uidCheck == user.uid" class="btn edit__profile d-block text-center" href="/user/{{user.uid}}/edit">Edit profile</a>
+      </div>
+    </div>
+  </div>
+</div>

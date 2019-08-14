@@ -1,3 +1,7 @@
+import { CanActivate } from '@angular/router/src/utils/preactivation';
+import { UidGuardService } from './core/services/auth-guards/uid-guard.service';
+import { AuthGuardService } from './core/services/auth-guards/auth-guard.service';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { CategoryComponent } from './category/category.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -13,7 +17,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'category/:name', component: CategoryComponent},
   {path: 'not-found', component: NotFoundComponent},
-  {path: 'user', component: UserComponent},
+  {path: 'user/:uid', component: UserComponent},
+  {path: 'user/:uid/edit', component: UserEditComponent, canActivate: [AuthGuardService, UidGuardService]},
   {path: '**', redirectTo: '/not-found'}
 ];
 

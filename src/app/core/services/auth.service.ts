@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Router } from  "@angular/router";
-import { auth } from  'firebase/app';
+import { Router, ActivatedRoute } from  "@angular/router";
 import { User } from  'firebase';
 
 @Injectable({
@@ -11,13 +10,11 @@ import { User } from  'firebase';
 export class AuthService {
   user: User;
   
-   constructor(public afAuth: AngularFireAuth, public router: Router) {
+   constructor(public afAuth: AngularFireAuth, public router: Router, private route: ActivatedRoute) {
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
-      } else {
-        localStorage.setItem('user', null);
       }
     });
    }
@@ -48,7 +45,7 @@ export class AuthService {
   }
 
   doLogin(value){
-    return new Promise<any>((resolve, reject)=>{
+    return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(value.email, value.password)
       .then(res => {
         resolve(res);

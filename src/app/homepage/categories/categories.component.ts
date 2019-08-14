@@ -7,14 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  items: Array<any>;
+  categories: Array<any>;
 
   constructor(public firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.firebaseService.getCategories().then(result => {
-      this.items = result;
+      this.categories = result;
     });
   }
-
 }

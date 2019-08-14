@@ -6,13 +6,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto my-2 my-lg-0">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="route.snapshot.routeConfig.path === ''">
           <a class="nav-link js-scroll-trigger" [ngx-scroll-to]="'#about'">About</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="route.snapshot.routeConfig.path === ''">
           <a class="nav-link js-scroll-trigger" [ngx-scroll-to]="'#categories'">Categories</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="route.snapshot.routeConfig.path === ''">
           <a class="nav-link js-scroll-trigger" [ngx-scroll-to]="'#contact'">Contact</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn == false">
@@ -23,12 +23,12 @@
         </li>
         <li *ngIf="authService.isLoggedIn == true" class="nav-item js-scroll-trigger account">
             <div class="btn-group">
-                <a type="link" class="btn btn-sm btn-transparent" routerLink="/users/username">{{user.displayName}}</a>
+                <a type="link" class="btn btn-sm btn-transparent" routerLink="/user/{{user.uid}}">{{user.displayName}}<img src="https://miic.ca/wp-content/uploads/2015/11/placeholder_avatar.jpg" alt="avatar.jpg" width="20" height="20"></a>
                 <button type="button" class="btn btn-sm btn-transparent border-left-0 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only"></span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right account-dropdown">
-                  <a class="dropdown-item" routerLink="/users/edit">Edit Account</a>
+                  <a class="dropdown-item" routerLink="/user/{{user.uid}}/edit">Edit Account</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" (click)="authService.logout()">Logout</a>
                 </div>

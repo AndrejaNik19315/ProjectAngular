@@ -1,4 +1,3 @@
-import { AuthService } from './core/services/auth.service';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
@@ -6,7 +5,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { ReactiveFormsModule } from '@angular/forms';
-import * as firebase from 'firebase/app';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,8 +23,8 @@ import { CategorypageComponent } from './category/categorypage/categorypage.comp
 import { CategoryComponent } from './category/category.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { UserComponent } from './user/user.component';
-import { from } from 'rxjs';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +41,8 @@ import { AngularFirestore } from 'angularfire2/firestore';
     CategorypageComponent,
     CategoryComponent,
     NotFoundComponent,
-    UserComponent
+    UserComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,

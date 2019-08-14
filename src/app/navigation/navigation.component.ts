@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import * as $ from 'jquery';
 import { AuthService } from '../core/services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,7 +11,7 @@ import { AuthService } from '../core/services/auth.service';
 export class NavigationComponent implements OnInit {
   user: any = JSON.parse(localStorage.getItem('user'));
 
-  constructor(private authService: AuthService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService) { }
 
   ngOnInit() { }
 

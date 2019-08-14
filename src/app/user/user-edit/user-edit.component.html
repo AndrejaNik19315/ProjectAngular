@@ -1,0 +1,24 @@
+<div class="user__section">
+  <div class="container user__container">
+    <h3 class="text-center">Edit User Profile</h3>
+    <hr/>
+    <div class="info__container">
+      <form class="row" [formGroup]="userUpdate" (ngSubmit)="tryUpdateUser(userUpdate.value)">
+      <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
+        <img src="https://miic.ca/wp-content/uploads/2015/11/placeholder_avatar.jpg" alt="avatar.jpg">
+        <input type="file" name="image" id="user-image">
+      </div>
+      <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-info">
+        <label for="username">Username</label>
+        <input type="text" value="Username"/>
+        <label for="email">Email</label>
+        <input type="text" value="Email"/>
+        <label for="dateJoined">Date Joined</label>
+        <span>2019-08-08</span>
+        <hr/>
+        <input type="submit" value="Update"/>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

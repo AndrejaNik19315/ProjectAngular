@@ -17,23 +17,26 @@ input{
     border-bottom: 1px solid rgba(146, 146, 146, 0.5);
     padding: 5px 0px;
     outline: none;
-    width: 100%;
-    display: block;
+    width:100%;
+    display:block;
 }
 
-.edit__profile{
+input[type="file"]{ 
+    
+}
+
+input[type="submit"]{
     border:1px solid rgba(146, 146, 146, 0.5);
     transition: 0.5s;
-    border-radius: unset;
 }
 
-.edit__profile:hover{
+input[type="submit"]:hover{
     background-color: #d62222;
     color: #fff;
 }
 
 .user__section{
-    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../assets/images/bg-user.jpg");
+    background: linear-gradient(to bottom, rgba(92, 66, 66, 0.3) 50%, rgba(92, 66, 66, 0.8) 100%), url("../../../assets/images/bg-user.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -52,7 +55,7 @@ input{
 }
 
 .user__container{
-    background-image: url("../../assets/images/papertexture.jpg");
+    background-image: url("../../../assets/images/papertexture.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;

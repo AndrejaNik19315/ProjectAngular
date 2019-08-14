@@ -10,6 +10,7 @@
       <h1 class="text-center my-4">
         <small>{{ data.title_name }} Category</small>
       </h1>
+      <!--Post-->
       <div class="card card--background mb-4">
         <!-- If Image is present
         <img class="card-img-top" src="image" alt="image_alt">
@@ -38,7 +39,8 @@
       </ul>-->
     </div>
     <!-- Sidebar Widgets Column -->
-    <div class="col-md-4">
+    <div class="widgets col-md-4">
+      <div class="widgets__wrapper">
       <!-- Search Widget -->
       <div class="card card--background search__card my-4">
         <h5 class="card-header">Search</h5>
@@ -58,8 +60,8 @@
           <div class="row">
             <div class="col-lg-6">
               <ul class="list-unstyled mb-0">
-                <li *ngFor='let category of data.categories'>
-                  <a *ngIf='category.name != data.title_name' routerLink="/{{ category.link }}">{{ category.name }}</a>
+                <li *ngFor='let category of categories'>
+                  <a *ngIf='category.payload.doc.data().name != data.title_name' routerLink="/{{ category.payload.doc.data().url_path }}">{{ category.payload.doc.data().name }}</a>
                 </li>
               </ul>
             </div>
@@ -76,6 +78,7 @@
           </ul>
         </div>
       </div>
+    </div>
     </div>
   </div>
   <!-- /.row -->

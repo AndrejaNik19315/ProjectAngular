@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../core/services/auth.service';
+import { callbackify } from 'util';
+import { messaging } from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +34,12 @@ export class LoginComponent implements OnInit {
       flag = false;
     
     if(flag == true){
-      this.authService.doLogin(value);
+      let response = this.authService.doLogin(value);
+      if(response.catch()){
+        response.catch(messaging => {
+          this.errorMessage = messaging.message;
+        });
+      }
     }
     else{
       this.errorMessage = "Email or password are empty";

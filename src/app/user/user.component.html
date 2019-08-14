@@ -3,10 +3,10 @@
     <h3 class="text-center">User Profile</h3>
     <hr/>
     <div class="row info__container">
-      <div *ngIf="user.photoURL == null" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
+      <div *ngIf="user.photoURL == null || user.photoURL == ''" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
         <img src="../../assets/images/placeholders/placeholder_avatar.jpg" alt="avatar.jpg">
       </div>
-      <div *ngIf="user.photoURL != null" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
+      <div *ngIf="user.photoURL != null && user.photoURL != ''" class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
         <img src="{{user.photoURL}}" alt="avatar.jpg">
       </div>
       <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-info">

@@ -19,6 +19,7 @@ export class UserComponent implements OnInit {
       this.user = this.findUser().then(result => {
         this.user.displayName = result.displayName;
         this.user.email = result.email;
+        this.user.photoURL = result.photoURL;
         this.dateJoined = new Date(parseInt(result.createdAt));
       });
     }

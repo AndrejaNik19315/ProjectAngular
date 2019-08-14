@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'category/:name', component: CategoryComponent},
   {path: 'not-found', component: NotFoundComponent},
-  {path: 'user/:uid', component: UserComponent},
+  {path: 'user/:uid', component: UserComponent, canActivate: [AuthGuardService]},
   {path: 'user/:uid/edit', component: UserEditComponent, canActivate: [AuthGuardService, UidGuardService]},
   {path: '**', redirectTo: '/not-found'}
 ];

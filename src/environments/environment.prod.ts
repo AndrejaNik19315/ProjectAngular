@@ -5,7 +5,7 @@ export const environment = {
     authDomain: 'divinityproject-31d93.firebaseapp.com',
     databaseURL: 'https://divinityproject-31d93.firebaseio.com',
     projectId: 'divinityproject-31d93',
-    storageBucket: '',
+    storageBucket: 'gs://divinityproject-31d93.appspot.com',
     messagingSenderId: '1080292503258',
     appId: '1:1080292503258:web:e9469267948b9354'
   }

@@ -76,7 +76,6 @@ export class RegisterComponent implements OnInit {
     return true;
   }
 
-  
   async checkIfDisplayNameAvailable(displayName: string) {
     let users;
     let flag = true;

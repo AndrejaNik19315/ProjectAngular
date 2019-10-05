@@ -22,17 +22,21 @@ input{
 }
 
 input[type="file"]{ 
-    
+    margin: 10px 0px;
 }
 
-input[type="submit"]{
+.update-button input{
     border:1px solid rgba(146, 146, 146, 0.5);
     transition: 0.5s;
 }
 
-input[type="submit"]:hover{
+.update-button input:hover{
     background-color: #d62222;
     color: #fff;
+}
+
+.btn-disabled{
+    background-color: #aaa !important;
 }
 
 .user__section{
@@ -47,6 +51,7 @@ input[type="submit"]:hover{
 
 .user-image{
     max-width: 100%;
+    margin-bottom: 10px;
 }
 
 .user-info{

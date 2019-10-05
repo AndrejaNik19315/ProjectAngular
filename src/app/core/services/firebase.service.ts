@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, fromDocRef } from 'angularfire2/firestore';
+import { AngularFireStorage  } from 'angularfire2/storage';
 import { reject, resolve } from 'q';
 import { snapshotChanges } from 'angularfire2/database';
+import { findLast } from '@angular/compiler/src/directive_resolver';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
  
-  constructor(private db: AngularFirestore) { }
+  constructor(private db: AngularFirestore, private storage: AngularFireStorage ) { }
 
   getCategories(){
     return new Promise<any>((resolve, reject) => {
@@ -19,7 +21,7 @@ export class FirebaseService {
     });
   }
 
-  //REST Users
+  //Users
 
   async getUsers(){
    return await new Promise<any>((resolve, reject) => {
@@ -56,17 +58,20 @@ export class FirebaseService {
       });
   }
 
-  updateUser(values){
-    //logic
+  async updateUser(values){
+    let flag = true;
+    let user = this.db.collection('users', ref => ref.where('uid', '==', values.uid).limit(1));
   }
 
   removeUser(){
     //logic
   }
 
-  // getUser(uid){
-  //   return new Promise<any>((resolve, reject) => {
-  //     this.db.firestore.
-  //   });
-  // }
+
+//Images
+  async uploadImage(file){
+    let path = "userImages/" + new Date().getTime() + "_" + file.name;
+    let task = this.storage.upload(path, file);
+    return task;
+  }
 }

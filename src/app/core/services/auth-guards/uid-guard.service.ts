@@ -16,7 +16,6 @@ export class UidGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean{
     const uidTarget = route.paramMap.get('uid');
     const uidUser = JSON.parse(localStorage.getItem('user')).uid;
-    console.log("In UidGuard");
     if(uidUser !== uidTarget){
       this.location.back();
       return false;

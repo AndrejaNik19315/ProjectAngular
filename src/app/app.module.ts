@@ -4,6 +4,8 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,8 +25,8 @@ import { CategorypageComponent } from './category/categorypage/categorypage.comp
 import { CategoryComponent } from './category/category.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { UserComponent } from './user/user.component';
-import { AngularFirestore } from 'angularfire2/firestore';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     ReactiveFormsModule
   ],
   providers: [

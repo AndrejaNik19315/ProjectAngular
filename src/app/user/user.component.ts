@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from '../core/services/firebase.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -12,7 +13,9 @@ export class UserComponent implements OnInit {
   dateJoined: Date = new Date(parseInt(this.user.createdAt));
   uidCheck: any = this.route.snapshot.params.uid;
 
-  constructor(private route: ActivatedRoute, private firebaseService: FirebaseService) { }
+  constructor(private titleService: Title, private route: ActivatedRoute, private firebaseService: FirebaseService) {
+    this.titleService.setTitle('Divinity - User Info');  
+  }
 
    ngOnInit() {
     if(this.uidCheck !== this.user.uid){

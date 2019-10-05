@@ -15,7 +15,6 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): boolean{
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log("In AuthGuard");
     if(user === null)
     {
       this.location.back();

@@ -19,19 +19,6 @@ export class AuthService {
     });
    }
 
-  doGoogleLogin(){
-    return new Promise<any>((resolve, reject) => {
-      let provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      this.afAuth.auth
-      .signInWithPopup(provider)
-      .then(res => {
-        resolve(res);
-      })
-    })
-  }
-
   doRegister(value){
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
@@ -40,7 +27,9 @@ export class AuthService {
           displayName: value.username
         });
         resolve(res);
-      }, err => reject(err));
+      }).catch(function(error){
+        reject(error)
+      });
     });
   }
 
@@ -51,6 +40,17 @@ export class AuthService {
         resolve(res);
         this.router.navigate(['/']);
       }, err => reject(err));
+    });
+  }
+
+  doUpdateUser(values){
+    return new Promise<any>((resolve, reject) => {
+      firebase.auth().currentUser.updateProfile({
+        displayName: values.displayName,
+        photoURL: values.photoURL
+      }).then(function(){
+        resolve("success");
+      }).catch(error => reject(error));
     });
   }
 

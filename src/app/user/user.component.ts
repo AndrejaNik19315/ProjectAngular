@@ -14,7 +14,7 @@ export class UserComponent implements OnInit {
   uidCheck: any = this.route.snapshot.params.uid;
 
   constructor(private titleService: Title, private route: ActivatedRoute, private firebaseService: FirebaseService) {
-    this.titleService.setTitle('Divinity - User Info');  
+    this.titleService.setTitle('Divinity - User Info');
   }
 
    ngOnInit() {

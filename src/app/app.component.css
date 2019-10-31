@@ -74,14 +74,14 @@
     background-size: cover;
 }
 
-.login-button input{
+/*.login-button input{
     border: none;
     font-weight: bold;
     padding: 10px 0px;
     background-color: #d62222;
     color: #FFF;
     border-radius: 0px 0px 15px 15px;
-}
+}*/
 
 /*Main Page*/
 .logo-image{

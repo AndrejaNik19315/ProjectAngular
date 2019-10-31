@@ -1,10 +1,11 @@
 import { Params, Router } from '@angular/router';
-import { FormGroup, FormControl, FormsModule, Validators, Validator, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { AuthService } from '../core/services/auth.service';
-import { FirebaseService } from '../core/services/firebase.service';
+import { FirebaseService } from '../core/services/firebase.service'
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,15 @@ export class RegisterComponent implements OnInit {
   successMessage: string;
   users: Array<any>;
 
-  constructor(private titleService: Title, private authService: AuthService, private firebaseService: FirebaseService, private router: Router) {
+  constructor(private titleService: Title, private authService: AuthService, private firebaseService: FirebaseService, private router: Router, private location: Location) {
     this.titleService.setTitle('Divinity - Register');
   }
 
   ngOnInit() {
+    if(this.authService.isLoggedIn){
+      this.location.back();
+    }
+    
     this.registerForm = new FormGroup({
       'username': new FormControl(null, [
         Validators.required,
@@ -103,23 +108,22 @@ export class RegisterComponent implements OnInit {
 
     if(flag === true){
       await this.authService.doRegister(values)
-      .then(
-        res => {
-          try{
+      .then(res => {
             let user : any = JSON.parse(localStorage.getItem('user'));
             user.displayName = values.username;
-            this.firebaseService.insertUser(user);
-
-            this.router.navigate(['/']);
-          }
-          catch(ex){
-            this.errorMessage = ex.message;
-          }
-        }, 
-        err => {
-        this.errorMessage = err.message;
-        this.successMessage = "";
-      });
+            this.firebaseService.insertUser(user)
+            .then(res => {
+              console.log(res);
+              this.router.navigate(['/']);
+            })
+            .catch(error => {
+              this.errorMessage = error.message;
+            });
+        })
+        .catch(error => {
+          this.errorMessage = error.message;
+          this.successMessage = "";
+        });
     }
   }
 

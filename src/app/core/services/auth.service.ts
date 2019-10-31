@@ -3,6 +3,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Router, ActivatedRoute } from  "@angular/router";
 import { User } from  'firebase';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class AuthService {
         this.user = user;
         localStorage.setItem('user', JSON.stringify(this.user));
       }
+      else{
+        localStorage.setItem('user', null);
+      }
     });
    }
 
@@ -27,8 +31,8 @@ export class AuthService {
           displayName: value.username
         });
         resolve(res);
-      }).catch(function(error){
-        reject(error)
+      }).catch(error => {
+        reject(error);
       });
     });
   }
@@ -39,25 +43,33 @@ export class AuthService {
       .then(res => {
         resolve(res);
         this.router.navigate(['/']);
-      }, err => reject(err));
+      }).catch(error => {
+        reject(error);
+      });
     });
   }
 
   doUpdateUser(values){
     return new Promise<any>((resolve, reject) => {
-      firebase.auth().currentUser.updateProfile({
+      this.user.updateProfile({
         displayName: values.displayName,
         photoURL: values.photoURL
-      }).then(function(){
-        resolve("success");
-      }).catch(error => reject(error));
+      }).then(success => {
+        resolve('success');
+      }).catch(error => {
+        reject(error);
+      });
     });
   }
 
-  async logout(){
-    await this.afAuth.auth.signOut();
-    localStorage.removeItem('user');
-    this.router.navigate(['/']);
+  logout(){
+    this.afAuth.auth.signOut().then(res => {
+      console.log(res);
+      localStorage.removeItem('user');
+      this.router.navigate(['/']);
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   get isLoggedIn(): boolean {

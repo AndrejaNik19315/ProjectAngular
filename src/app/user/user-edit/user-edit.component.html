@@ -5,17 +5,17 @@
     <div class="info__container">
       <form class="row" [formGroup]="updateUserForm" (ngSubmit)="tryUpdateUser(updateUserForm.value)">
       <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-image">
-        <img *ngIf="user.photoURL == null || user.photoURL == ''" src="../../assets/images/placeholders/placeholder_avatar.jpg" alt="avatar.jpg">
-        <img *ngIf="user.photoURL != null && user.photoURL != ''" src="{{user.photoURL}}" alt="avatar.jpg">
-        <input type="file" name="userImage" id="user-image" formControlName="userImage">
-        <span *ngIf="updateUserForm.get('userImage').dirty && updateUserForm.get('userImage').invalid" class="text-danger">Image can be in jpg, jpeg or png format and must be no more than 1mb</span>
+        <img *ngIf="(user.photoURL == null || user.photoURL == '') && imageURL == null" src="../../assets/images/placeholders/placeholder_avatar.jpg" alt="avatar.jpg">
+        <img *ngIf="imageURL" [src]="imageURL">
+        <img *ngIf="user.photoURL != null && user.photoURL != '' && imageURL == null" src="{{user.photoURL}}" alt="avatar.jpg">
+        <input #file type="file" name="userAvatar" id="user-image" formControlName="userAvatar" (change)="preview(file.files)">
+        <span *ngIf="updateUserForm.get('userAvatar').dirty && updateUserForm.get('userAvatar').invalid" class="text-danger">Image can be in jpg, jpeg or png format and must be no more than 1mb</span>
       </div>
       <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-info">
         <label for="displayName">Display Name</label>
         <input type="text" name="displayName" value="{{user.displayName}}" formControlName="displayName"/>
         <span *ngIf="updateUserForm.get('displayName').touched && updateUserForm.get('displayName').invalid" class="text-danger">displayName out of format</span>
         <label for="email">Email</label>
-        <!--<input type="text" name="email" value="{{user.email}}" formControlName="email"/>-->
         <span>{{user.email}}</span>
         <label for="dateJoined">Date Joined</label>
         <span>{{dateJoined.toDateString()}}</span>
@@ -24,9 +24,16 @@
           <input type="submit" name='btnUpdate' value="Update" [disabled]='updateUserForm.invalid'/>
         </div>
       </div>
-      <span class="text-danger">{{errorMessage}}</span>
-      <span class="text-success">{{successMessage}}</span>
+      <div *ngIf="errorMessage != null" class="text-danger w-100 p-2 text-center">{{errorMessage}}</div>
+      <div *ngIf="successMessage != null" class="text-success w-100 p-2 text-center">{{successMessage}}</div>
       </form>
     </div>
+    <ngx-spinner 
+    bdColor = "rgba(0,0,0,0.3)"
+    size = "medium"
+    color = "#333"
+    type = "line-scale"
+    [fullScreen] = "true">
+    <p style="font-size: 20px;">Saving...</p></ngx-spinner>
   </div>
 </div>

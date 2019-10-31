@@ -23,7 +23,7 @@
         </li>
         <li *ngIf="authService.isLoggedIn == true" class="nav-item js-scroll-trigger account">
             <div class="btn-group">
-                <a type="link" class="btn btn-sm btn-transparent" routerLink="/user/{{user.uid}}">{{user.displayName}}<img src="https://miic.ca/wp-content/uploads/2015/11/placeholder_avatar.jpg" alt="avatar.jpg" width="20" height="20"></a>
+                <a type="link" class="btn btn-sm btn-transparent" routerLink="/user/{{user.uid}}">{{user.displayName}}<img *ngIf="user.photoURL == null" src="../../assets/images/placeholders/placeholder_avatar.jpg" alt="avatar.jpg" width="20" height="20"/><img *ngIf="user.photoURL != null" src="{{user.photoURL}}" alt="avatar.jpg" width="20" height="20"/></a>
                 <button type="button" class="btn btn-sm btn-transparent border-left-0 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span class="sr-only"></span>
                 </button>

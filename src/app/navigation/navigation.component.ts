@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class NavigationComponent implements OnInit {
   user: any = JSON.parse(localStorage.getItem('user'));
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) { }
+  constructor(public route: ActivatedRoute, public authService: AuthService) { }
 
   ngOnInit() { }
 

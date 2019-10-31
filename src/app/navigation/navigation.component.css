@@ -19,6 +19,7 @@
   #mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
     color: #f0c60d;
     cursor: pointer;
+    transition: 0.5s;
   }
   
   #mainNav .navbar-nav .nav-item .nav-link.active {

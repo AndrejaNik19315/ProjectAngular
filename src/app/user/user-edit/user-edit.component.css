@@ -54,6 +54,11 @@ input[type="file"]{
     margin-bottom: 10px;
 }
 
+.user-image img{
+    max-height: 300px;
+    max-width: 300px;
+}
+
 .user-info{
     margin-left: auto;
     margin-right: auto;

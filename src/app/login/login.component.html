@@ -11,7 +11,7 @@
           <input class='col-12' type='password' name='password' placeholder='Password' formControlName="password" required/>
         </div>
         <div class='login-button'>
-          <input class='col-12' type='submit' name='btnSubmit' value='Login'/>
+          <input [ngClass]="loginForm.invalid ? 'btn-disabled' : ''" class='col-12' type='submit' name='btnSubmit' value='Login' [disabled]='loginForm.invalid'/>
         </div>
         </div>
         <span class="text-danger">{{errorMessage}}</span>

@@ -1,34 +1,38 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, fromDocRef } from 'angularfire2/firestore';
-import { AngularFireStorage  } from 'angularfire2/storage';
-import { reject, resolve } from 'q';
-import { snapshotChanges } from 'angularfire2/database';
-import { findLast } from '@angular/compiler/src/directive_resolver';
+import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
+import { Observable } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import { resolve, reject } from 'q';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
- 
-  constructor(private db: AngularFirestore, private storage: AngularFireStorage ) { }
+
+  constructor(private db: AngularFirestore, private storage: AngularFireStorage) { }
 
   getCategories(){
     return new Promise<any>((resolve, reject) => {
       this.db.collection('categories').snapshotChanges()
-      .subscribe(snapshots => {
+      .subscribe(snapshots => { 
         resolve(snapshots);
+        reject(snapshots);
       });
     });
   }
 
-  //Users
+//FIRESTORE
 
+//Users
+  //GET
   async getUsers(){
    return await new Promise<any>((resolve, reject) => {
       this.db.collection('users').snapshotChanges()
-      .subscribe(snapshots => {
-        resolve(snapshots);
-      });
+      .subscribe(
+        (response) => resolve(response),
+        (error) => reject(error)
+      );
     });
   }
 
@@ -36,13 +40,16 @@ export class FirebaseService {
     return new Promise<any>((resolve, reject) => {
       this.db.collection('users', ref => ref.where('uid', '==', uid).limit(1))
       .snapshotChanges()
-      .subscribe(snapshots => {
-        resolve(snapshots);
-      });
+      .subscribe(
+        (response) => resolve(response),
+        (error) => reject(error)
+      )
     });
   }
 
+  //POST
   insertUser(values){
+    return new Promise<any>((resolve,reject) => {
       this.db.collection('users').add({
         uid: values.uid,
         createdAt: parseInt(values.createdAt),
@@ -50,28 +57,59 @@ export class FirebaseService {
         email: values.email,
         photoURL: ''
       })
-      .then(function(docRef) {
-        return docRef;
-      })
-      .catch(function(error){
-        return error;
-      });
+      .then(res => resolve(res))
+      .catch(error => reject(error));
+    });
+      // this.db.collection('users').add({
+      //   uid: values.uid,
+      //   createdAt: parseInt(values.createdAt),
+      //   displayName: values.displayName,
+      //   email: values.email,
+      //   photoURL: ''
+      // })
+      // .then(docRef => {
+      //   return docRef;
+      // })
+      // .catch(error => {
+      //   return error;
+      // });
   }
 
+  //UPDATE
   async updateUser(values){
-    let flag = true;
-    let user = this.db.collection('users', ref => ref.where('uid', '==', values.uid).limit(1));
+    let user = await this.getUser(values.uid);
+    return await new Promise<any>((resolve, reject) => {
+      this.db.collection('users').doc(user[0].payload.doc.id).update(values)
+      .then(success => {
+        resolve("Update successful");
+      })
+      .catch(error => {
+        reject(error.message);
+      });
+    });
   }
 
+  //DELETE
   removeUser(){
     //logic
   }
 
+//STORAGE
 
 //Images
-  async uploadImage(file){
-    let path = "userImages/" + new Date().getTime() + "_" + file.name;
-    let task = this.storage.upload(path, file);
-    return task;
+  //UPLOAD
+  uploadImage(event: File){
+      const file = event;
+      let path = "userAvatars/" + new Date().getTime() + "_" + file.name;
+      return this.storage.upload(path, file)
+      .then(res => res.ref.getDownloadURL())
+      .catch(error => error.message);
+  }
+  
+  //REMOVE
+  removeImage(imageURL: string){
+    return this.storage.storage.refFromURL(imageURL).delete()
+    .then(res => res)
+    .catch(error => error);
   }
 }

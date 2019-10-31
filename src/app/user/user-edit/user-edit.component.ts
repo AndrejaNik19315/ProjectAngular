@@ -3,28 +3,35 @@ import { Component, OnInit, ElementRef, HostListener, Directive } from '@angular
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { Title } from '@angular/platform-browser';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
   styleUrls: ['./user-edit.component.css']
 })
+
 export class UserEditComponent implements OnInit {
+
   updateUserForm: FormGroup;
   user: any = JSON.parse(localStorage.getItem('user'));
   dateJoined: Date = new Date(parseInt(this.user.createdAt));
 
-  private file: File | null = null;
+  file: File | null = null;
+  imagePath = null;
+  photoURL = null;
+  imageURL = null;
+  currentUserImage = this.user.providerData[0].photoURL;
 
   errorMessage: string;
   successMessage: string;
 
-  @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
-    const file = event && event.item(0);
+  @HostListener('change', ['$event.target.files']) emitFile( event: File ) {
+    const file = event[0];
     this.file = file;
   }
 
-  constructor(private titleService: Title, private authService: AuthService, private firebaseService: FirebaseService) {
+  constructor(private titleService: Title, private authService: AuthService, private firebaseService: FirebaseService, private spinner: NgxSpinnerService) {
     this.titleService.setTitle('Divinity - User Update');
   }
 
@@ -34,14 +41,16 @@ export class UserEditComponent implements OnInit {
         Validators.required,
         Validators.minLength(3)
       ]),
-      'userImage' : new FormControl(null, [
+      'userAvatar' : new FormControl(this.file, [
         this.allowedFileType(['png','jpeg','jpg'])
       ])
     });
   }
 
   async tryUpdateUser(values){
-    values.userImage = this.file;
+    this.successMessage = null;
+    this.errorMessage = null;
+    this.spinner.show();
     let flag;
 
     await this.validation(values).then(result => {
@@ -49,34 +58,57 @@ export class UserEditComponent implements OnInit {
     });
 
     if(flag === true){
-      //let flag = true;
-
-      if(values.userImage !== null){
-        await this.firebaseService.uploadImage(values.userImage).then(result => {
-          if(result.state === 'success'){
-            values.photoURL = result.metadata.fullPath;
+      //If image is set upload it
+      if(this.file !== null){
+        await this.firebaseService.uploadImage(this.file)
+        .then(res => {
+          this.photoURL = res.split('&')[0];
+          values.photoURL = this.photoURL;
+          //Remove previous image if there is one
+          if(this.currentUserImage !== null){
+            this.firebaseService.removeImage(this.currentUserImage)
+            .catch(error => {
+              console.log(error);
+              this.successMessage = null;
+              this.errorMessage = error.message;
+              flag = false;
+            });
           }
-        }).catch(function(error){
+        })
+        .catch(error => {
+          this.successMessage = null;
+          this.errorMessage = error;
+          console.log(error);
           flag = false;
-          this.errorMessage = "Something went wrong while uploading image.";
         });
       }
 
+      //Update auth and firestore data of user 
       if(flag === true){
+        delete values.userAvatar;
         await this.authService.doUpdateUser(values)
         .then(result => {
           if(result === 'success'){
             values.uid = this.user.uid;
-            this.firebaseService.updateUser(values);
+            this.firebaseService.updateUser(values)
+            .then(success => {
+              this.successMessage = success;
+              this.errorMessage = null;
+            })
+            .catch(error => {
+              console.log(error);
+              this.successMessage = null;
+              this.errorMessage = error;
+            });
           }
         })
-        .catch(function(error){
+        .catch(error => {
           console.log(error);
+          this.successMessage = null;
+          this.errorMessage = "Something went wrong while trying to update";
         });
-        // await this.firebaseService.updateUser(values).then(result => {
-        //   console.log(result);
-        // });
       }
+      this.spinner.hide();
     }
   }
 
@@ -104,8 +136,8 @@ export class UserEditComponent implements OnInit {
   }
 
   async checkIfDisplayNameAvailable(displayName: string) {
-    let users;
     let flag = true;
+    let users;
 
     await this.firebaseService.getUsers().then(result => {
       users = result;
@@ -138,6 +170,22 @@ export class UserEditComponent implements OnInit {
     };
   }
 
+  preview(userAvatar){
+    if (userAvatar.length === 0)
+    return;
+
+    var mimeType = userAvatar[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = userAvatar;
+    reader.readAsDataURL(userAvatar[0]);
+    reader.onload = (_event) => {
+      this.imageURL = reader.result;
+    }
+  }
 }
 
 

@@ -60,19 +60,6 @@ export class FirebaseService {
       .then(res => resolve(res))
       .catch(error => reject(error));
     });
-      // this.db.collection('users').add({
-      //   uid: values.uid,
-      //   createdAt: parseInt(values.createdAt),
-      //   displayName: values.displayName,
-      //   email: values.email,
-      //   photoURL: ''
-      // })
-      // .then(docRef => {
-      //   return docRef;
-      // })
-      // .catch(error => {
-      //   return error;
-      // });
   }
 
   //UPDATE

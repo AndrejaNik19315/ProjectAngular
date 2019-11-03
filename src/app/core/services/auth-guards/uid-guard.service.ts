@@ -13,7 +13,7 @@ export class UidGuardService implements CanActivate {
 
   constructor(private auth: AuthService, private router: Router, private location: Location) { }
 
-  canActivate(route: ActivatedRouteSnapshot): boolean{
+  canActivate(route: ActivatedRouteSnapshot): boolean {
     const uidTarget = route.paramMap.get('uid');
     const uidUser = JSON.parse(localStorage.getItem('user')).uid;
     if(uidUser !== uidTarget){

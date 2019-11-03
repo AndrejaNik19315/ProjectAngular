@@ -19,9 +19,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.authService.isLoggedIn){
-      this.location.back();
-    }
     this.loginForm = new FormGroup({
       'email': new FormControl(null),
       'password': new FormControl(null)

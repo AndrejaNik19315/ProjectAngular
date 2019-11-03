@@ -1,13 +1,11 @@
-import { AuthService } from '../auth.service';
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 import { CanActivate } from '@angular/router/src/utils/preactivation';
-import { Router } from '@angular/router';
-import {Location} from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate {
+export class LoggedinGuardService implements CanActivate {
   path: import("@angular/router").ActivatedRouteSnapshot[];
   route: import("@angular/router").ActivatedRouteSnapshot;
 
@@ -15,11 +13,12 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(): boolean{
     const user = JSON.parse(localStorage.getItem('user'));
-    if(user === null)
+    if(user !== null)
     {
       this.location.back();
       return false;
     }
     return true;
   }
+
 }

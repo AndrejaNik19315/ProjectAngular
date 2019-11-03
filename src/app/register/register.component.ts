@@ -23,10 +23,6 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.authService.isLoggedIn){
-      this.location.back();
-    }
-    
     this.registerForm = new FormGroup({
       'username': new FormControl(null, [
         Validators.required,
@@ -109,21 +105,20 @@ export class RegisterComponent implements OnInit {
     if(flag === true){
       await this.authService.doRegister(values)
       .then(res => {
-            let user : any = JSON.parse(localStorage.getItem('user'));
-            user.displayName = values.username;
-            this.firebaseService.insertUser(user)
-            .then(res => {
-              console.log(res);
-              this.router.navigate(['/']);
-            })
-            .catch(error => {
-              this.errorMessage = error.message;
-            });
-        })
-        .catch(error => {
+          let user : any = this.authService.user.toJSON();
+          user.displayName = values.username;
+          this.firebaseService.insertUser(user)
+          .catch(error => {
+            this.errorMessage = error.message;
+            this.successMessage = '';
+          });
+          this.errorMessage = '';
+          this.successMessage = res.message;
+      })
+      .catch(error => {
           this.errorMessage = error.message;
-          this.successMessage = "";
-        });
+          this.successMessage = '';
+      });
     }
   }
 

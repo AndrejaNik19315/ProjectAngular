@@ -11,17 +11,29 @@ import { Observable } from 'rxjs';
 export class AuthService {
   user: User;
   
-   constructor(public afAuth: AngularFireAuth, public router: Router, private route: ActivatedRoute) {
+  constructor(public afAuth: AngularFireAuth, public router: Router, private route: ActivatedRoute) {
     this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.user = user;
+      this.user = user;
+      if (user && user.emailVerified) {
         localStorage.setItem('user', JSON.stringify(this.user));
       }
       else{
         localStorage.setItem('user', null);
       }
     });
-   }
+  }
+
+  sendEmailVerification(){
+    return new Promise<any>((resolve, reject) => {
+      this.afAuth.auth.currentUser.sendEmailVerification().then(() => {
+        resolve('Email sent');
+      })
+      .catch(error => {
+        reject(error);
+        console.log(error);
+      });
+    });
+  }
 
   doRegister(value){
     return new Promise<any>((resolve, reject) => {
@@ -29,8 +41,13 @@ export class AuthService {
       .then(res => {
         res.user.updateProfile({
           displayName: value.username
-        });
-        resolve(res);
+        })
+        .then(() => {
+          this.sendEmailVerification()
+          .then(res => resolve({message: res}))
+          .catch(error => console.log(error));
+        })
+        .catch(error => console.log(error));
       }).catch(error => {
         reject(error);
       });
@@ -41,10 +58,15 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().signInWithEmailAndPassword(value.email, value.password)
       .then(res => {
-        resolve(res);
-        this.router.navigate(['/']);
+        if(res.user.emailVerified === true){
+          this.router.navigate(['/']);
+        }
+        else{
+          reject({message: "User not verified"});
+        }
       }).catch(error => {
         reject(error);
+        console.log(error);
       });
     });
   }
@@ -54,7 +76,7 @@ export class AuthService {
       this.user.updateProfile({
         displayName: values.displayName,
         photoURL: values.photoURL
-      }).then(success => {
+      }).then(() => {
         resolve('success');
       }).catch(error => {
         reject(error);
@@ -63,8 +85,7 @@ export class AuthService {
   }
 
   logout(){
-    this.afAuth.auth.signOut().then(res => {
-      console.log(res);
+    this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['/']);
     }).catch(error => {

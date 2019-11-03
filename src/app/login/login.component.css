@@ -66,17 +66,6 @@ form span{
     background-color: #d62222;
 }
 
-.link-home{
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: #d62222;
-    color: #000;
-    border: 1px solid #000;
-    border-radius: 5px;
-    padding: 5px 15px;
-}
-
 @media (max-width: 1024px) {
     .login__form--rectangle{
         top: 0px;
@@ -97,13 +86,5 @@ form span{
     .login-section{
         float: none;
         padding: 8em 1em;
-    }
-}
-
-@media (max-width: 425px){
-    .link-home{
-        position: absolute;
-        top: 155px;
-        left: 20px;
     }
 }

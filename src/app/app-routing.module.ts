@@ -10,11 +10,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { UserComponent } from './user/user.component';
+import { LoggedinGuardService } from './core/services/auth-guards/loggedin-guard.service';
 
 const routes: Routes = [
   {path: '', component: HomepageComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [LoggedinGuardService]},
+  {path: 'register', component: RegisterComponent, canActivate: [LoggedinGuardService]},
   {path: 'category/:name', component: CategoryComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'user/:uid', component: UserComponent, canActivate: [AuthGuardService]},

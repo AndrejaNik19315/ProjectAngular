@@ -28,6 +28,7 @@ import { CategoryComponent } from './category/category.component';
 import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { UserComponent } from './user/user.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
+import { BackBtnComponent } from './shared/components/back-btn/back-btn.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { UserEditComponent } from './user/user-edit/user-edit.component';
     CategoryComponent,
     NotFoundComponent,
     UserComponent,
-    UserEditComponent
+    UserEditComponent,
+    BackBtnComponent
   ],
   imports: [
     BrowserModule,

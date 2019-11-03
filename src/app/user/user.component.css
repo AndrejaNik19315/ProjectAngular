@@ -72,3 +72,18 @@ input{
 .info__container{
     padding: 20px;
 }
+
+.link-home{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #d62222;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px 15px;
+}
+
+.link-home:hover{
+    cursor: pointer;
+}

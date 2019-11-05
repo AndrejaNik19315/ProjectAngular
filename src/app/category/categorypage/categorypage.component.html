@@ -10,21 +10,33 @@
       <h1 class="text-center my-4">
         <small>{{ data.title_name }} Category</small>
       </h1>
-      <!--Post-->
-      <div class="card card--background mb-4">
-        <!-- If Image is present
-        <img class="card-img-top" src="image" alt="image_alt">
-        -->
+      <!--Dynamic post-->
+      <div *ngFor='let post of posts' class="card card--background-transparent mb-4">
         <div class="card-body">
-          <h2 class="card-title">Title</h2>
-          <p class="card-text">Description</p>
-        </div>
-        <hr/>
-        <div class="pl-4 pr-4 text-muted">
-          Posted on Date by
-        <a href="#">username</a>
+          <h2 class="card-title">{{post.payload.doc.data().title}}</h2>
+          <img *ngIf="post.payload.doc.data().photoURL !== null && post.payload.doc.data().photoURL !== ''" class="card-img-top card-img-compact" src="../../../assets/images/placeholders/placeholder_post.png" alt="post_alt">
+          <p class="card-text mt-2">{{post.payload.doc.data().description}}</p>
+          <hr/>
+          <div class="pl-2 pr-2 text-muted">
+            Posted on {{post.payload.doc.data().createAt.toDate() | date: 'medium'}} by
+            <a href="#">{{post.payload.doc.data().username}}</a>
+          </div>
         </div>
       </div>
+      <!--Post
+      <div class="card card--background-transparent mb-4">
+        <div class="card-body">
+          <h2 class="card-title">Title</h2>
+            <img class="card-img-top card-img-compact" src="../../../assets/images/placeholders/placeholder_post.png" alt="post_alt">
+          <p class="card-text mt-2">Description</p>
+          <hr/>
+          <div class="pl-2 pr-2 text-muted">
+            Posted on Date by
+          <a href="#">username</a>
+          </div>
+        </div>
+      
+      </div>-->
           <!-- No content available
           <div>There are currently no posts in this category :(</div>
           -->
@@ -42,7 +54,7 @@
     <div class="widgets col-md-4">
       <div class="widgets__wrapper">
       <!-- Search Widget -->
-      <div class="card card--background search__card my-4">
+      <div class="card card--background-transparent search__card my-4">
         <h5 class="card-header">Search</h5>
         <div class="card-body">
           <div class="input-group">
@@ -54,7 +66,7 @@
         </div>
       </div>
       <!-- Categories Widget -->
-      <div class="card card--background my-4">
+      <div class="card card--background-transparent my-4">
         <h5 class="card-header">Other Categories</h5>
         <div class="card-body">
           <div class="row">
@@ -69,7 +81,7 @@
         </div>
       </div>
       <!-- Side Widget -->
-      <div class="card card--background my-4">
+      <div class="card card--background-transparent my-4">
         <h5 class="card-header">Rules</h5>
         <div class="card-body">
           <ul>

@@ -12,17 +12,28 @@ export class FirebaseService {
 
   constructor(private db: AngularFirestore, private storage: AngularFireStorage) { }
 
+  //FIRESTORE
+
+  //Categories
+  //GET
   getCategories(){
     return new Promise<any>((resolve, reject) => {
       this.db.collection('categories').snapshotChanges()
-      .subscribe(snapshots => { 
-        resolve(snapshots);
-        reject(snapshots);
-      });
+      .subscribe(
+        (response) => resolve(response),
+        (error) => reject(error)
+      );
     });
   }
 
-//FIRESTORE
+  getCategory(categoryPath){
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection('categories', ref => ref.where('url_path', '==', categoryPath).limit(1)).snapshotChanges().subscribe(
+        (response) => resolve(response),
+        (error) => reject(error)
+      );
+    });
+  }
 
 //Users
   //GET
@@ -80,6 +91,18 @@ export class FirebaseService {
   removeUser(){
     //logic
   }
+
+//Posts
+//GET
+getCategoryPosts(categoryUid){
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryUid).collection('posts').snapshotChanges()
+    .subscribe(
+      (response) => resolve(response),
+      (error) => reject(error)
+    );
+  });
+}
 
 //STORAGE
 

@@ -103,7 +103,11 @@
     overflow: hidden;
 }
 
-.card--background{
+.card--background-transparent {
     background-color: transparent;
     border: none;
+}
+
+.card-img-compact{
+    max-height: 400px;
 }

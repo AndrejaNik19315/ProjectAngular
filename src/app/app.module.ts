@@ -29,6 +29,9 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { UserComponent } from './user/user.component';
 import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { BackBtnComponent } from './shared/components/back-btn/back-btn.component';
+import { PostComponent } from './category/categorypage/post/post.component';
+import { DisplayPostComponent } from './category/categorypage/post/display-post/display-post.component';
+import { CreatePostComponent } from './category/categorypage/post/create-post/create-post.component';
 
 
 @NgModule({
@@ -48,7 +51,10 @@ import { BackBtnComponent } from './shared/components/back-btn/back-btn.componen
     NotFoundComponent,
     UserComponent,
     UserEditComponent,
-    BackBtnComponent
+    BackBtnComponent,
+    PostComponent,
+    DisplayPostComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

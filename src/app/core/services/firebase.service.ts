@@ -94,10 +94,19 @@ export class FirebaseService {
 
 //Posts
 //GET
-getCategoryPosts(categoryUid){
+getCategoryPosts(categoryId){
   return new Promise<any>((resolve, reject) => {
-    this.db.collection('categories').doc(categoryUid).collection('posts').snapshotChanges()
+    this.db.collection('categories').doc(categoryId).collection('posts').snapshotChanges()
     .subscribe(
+      (response) => resolve(response),
+      (error) => reject(error)
+    );
+  });
+}
+
+getCategoryPost(categoryId, postId){
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).snapshotChanges().subscribe(
       (response) => resolve(response),
       (error) => reject(error)
     );

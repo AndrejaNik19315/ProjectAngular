@@ -1,4 +1,5 @@
-import { PostComponent } from './category/categorypage/post/post.component';
+import { CreatePostComponent } from './category/categorypage/post/create-post/create-post.component';
+import { DisplayPostComponent } from './category/categorypage/post/display-post/display-post.component';
 import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { UidGuardService } from './core/services/auth-guards/uid-guard.service';
 import { AuthGuardService } from './core/services/auth-guards/auth-guard.service';
@@ -21,7 +22,8 @@ const routes: Routes = [
   {path: 'not-found', component: NotFoundComponent},
   {path: 'user/:uid', component: UserComponent, canActivate: [AuthGuardService]},
   {path: 'user/:uid/edit', component: UserEditComponent, canActivate: [AuthGuardService, UidGuardService]},
-  {path: 'category/:name/posts/:postId', component: PostComponent},
+  {path: 'category/:name/posts/:postId', component: DisplayPostComponent},
+  {path: 'category/:name/posts/create', component: CreatePostComponent},
   {path: '**', redirectTo: '/not-found'}
 ];
 

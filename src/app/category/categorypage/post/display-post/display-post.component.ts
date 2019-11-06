@@ -6,7 +6,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 @Component({
   selector: 'app-display-post',
   templateUrl: './display-post.component.html',
-  styleUrls: ['./display-post.component.css']
+  styleUrls: ['./display-post.component.css', '../../categorypage.component.css']
 })
 export class DisplayPostComponent implements OnInit {
 
@@ -16,7 +16,6 @@ export class DisplayPostComponent implements OnInit {
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService) {
     this.titleService.setTitle('Divinity - Post');
   }
-
 
   ngOnInit() {
   }

@@ -32,6 +32,8 @@ import { BackBtnComponent } from './shared/components/back-btn/back-btn.componen
 import { PostComponent } from './category/categorypage/post/post.component';
 import { DisplayPostComponent } from './category/categorypage/post/display-post/display-post.component';
 import { CreatePostComponent } from './category/categorypage/post/create-post/create-post.component';
+import { CommentsSectionComponent } from './category/categorypage/post/display-post/comments-section/comments-section.component';
+import { CommentBoxComponent } from './category/categorypage/post/display-post/comment-box/comment-box.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { CreatePostComponent } from './category/categorypage/post/create-post/cr
     BackBtnComponent,
     PostComponent,
     DisplayPostComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    CommentsSectionComponent,
+    CommentBoxComponent
   ],
   imports: [
     BrowserModule,

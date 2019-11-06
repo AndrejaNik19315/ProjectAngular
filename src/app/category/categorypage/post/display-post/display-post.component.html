@@ -1,8 +1,30 @@
-<div [ngClass]="(titleName=='Gameplay') ? 'category__section--gameplay' : 
-(titleName=='World') ? 'category__section--world' : 
-(titleName=='Characters') ? 'category__section--characters' :
-(titleName=='Lore') ? 'category__section--lore' : 
-(titleName=='Builds') ? 'category__section--builds' :
-(titleName=='Random') ? 'category__section--random' : 'category__section'">
-
+<app-navigation></app-navigation>
+<div [ngClass]="(titleName =='Gameplay') ? 'category__section--gameplay' : 
+                (titleName=='World') ? 'category__section--world' : 
+                (titleName=='Characters') ? 'category__section--characters' :
+                (titleName=='Lore') ? 'category__section--lore' : 
+                (titleName=='Builds') ? 'category__section--builds' :
+                (titleName=='Random') ? 'category__section--random' : 'category__section'">
+    <div class="category__content container">
+    <div class="row">
+      <div class="post col-md-12">
+        <!--Dynamic posts-->
+        <div class="card card--background-transparent mb-4">
+          <div class="card-body">
+            <h2 class="card-title">Post title here</h2>
+           <!-- <img *ngIf="post.payload.doc.data().photoURL !== null && post.payload.doc.data().photoURL !== ''" class="card-img-top card-img-compact" src="../../../assets/images/placeholders/placeholder_post.png" alt="post_alt">-->
+            <p class="card-text mt-2">Some description</p>
+            <div class="pl-2 pr-2 text-muted card-footer">
+              Posted on Date by
+              <img class="avatar" src="#" alt="user_image"/> <a href="#">User</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="comments col-md-12">
+        Comments...
+      </div>
+    </div>
+    </div>
 </div>
+<app-footer></app-footer>

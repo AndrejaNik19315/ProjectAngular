@@ -15,7 +15,7 @@ export class CategorypageComponent implements OnInit, OnDestroy {
   categoryPath: string;
   posts: Array<any>;
   paramsSubscription: Subscription;
-  titleName: any;
+  categoryName: any;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
@@ -26,8 +26,8 @@ export class CategorypageComponent implements OnInit, OnDestroy {
     this.paramsSubscription = this.route.params.subscribe(
       () => {
         this.categoryPath = 'category/' + this.route.snapshot.params.name;
-        this.titleName = this.route.snapshot.params['name'].charAt(0).toUpperCase() + this.route.snapshot.params['name'].slice(1);
-        this.titleService.setTitle('Divinity - ' + this.titleName);
+        this.categoryName = this.route.snapshot.params['name'].charAt(0).toUpperCase() + this.route.snapshot.params['name'].slice(1);
+        this.titleService.setTitle('Divinity - ' + this.categoryName);
         this.getCategoryData(this.categoryPath);
       }
     );

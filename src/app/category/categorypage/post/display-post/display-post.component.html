@@ -1,14 +1,14 @@
 <app-navigation></app-navigation>
-<div [ngClass]="(titleName =='Gameplay') ? 'category__section--gameplay' : 
-                (titleName=='World') ? 'category__section--world' : 
-                (titleName=='Characters') ? 'category__section--characters' :
-                (titleName=='Lore') ? 'category__section--lore' : 
-                (titleName=='Builds') ? 'category__section--builds' :
-                (titleName=='Random') ? 'category__section--random' : 'category__section'">
+<div [ngClass]="(categoryName =='Gameplay') ? 'category__section--gameplay' : 
+                (categoryName=='World') ? 'category__section--world' : 
+                (categoryName=='Characters') ? 'category__section--characters' :
+                (categoryName=='Lore') ? 'category__section--lore' : 
+                (categoryName=='Builds') ? 'category__section--builds' :
+                (categoryName=='Random') ? 'category__section--random' : 'category__section'">
     <div class="category__content container">
     <div class="row">
       <div class="post col-md-12">
-        <!--Dynamic posts-->
+        <!--Dynamic post-->
         <div class="card card--background-transparent mb-4">
           <div class="card-body">
             <h2 class="card-title">Post title here</h2>
@@ -20,6 +20,11 @@
           </div>
         </div>
       </div>
+      <div class="comment-box col-md-12 mb-4">
+        <textarea></textarea>
+        <input name="Submit" type="submit"/><input name="Cancel" type="reset"/>
+      </div>
+      <!--To separate comments to its own component-->
       <div class="comments col-md-12">
         <div class="comment">
           <div class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg">SpiritAnimal</a><span class="text-muted"> 3 minutes ago</span></div>

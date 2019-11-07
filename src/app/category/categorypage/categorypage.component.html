@@ -1,14 +1,14 @@
- <div [ngClass]="(titleName =='Gameplay') ? 'category__section--gameplay' : 
-                  (titleName=='World') ? 'category__section--world' : 
-                  (titleName=='Characters') ? 'category__section--characters' :
-                  (titleName=='Lore') ? 'category__section--lore' : 
-                  (titleName=='Builds') ? 'category__section--builds' :
-                  (titleName=='Random') ? 'category__section--random' : 'category__section'">
+ <div [ngClass]="(categoryName =='Gameplay') ? 'category__section--gameplay' : 
+                  (categoryName=='World') ? 'category__section--world' : 
+                  (categoryName=='Characters') ? 'category__section--characters' :
+                  (categoryName=='Lore') ? 'category__section--lore' : 
+                  (categoryName=='Builds') ? 'category__section--builds' :
+                  (categoryName=='Random') ? 'category__section--random' : 'category__section'">
  <div class="category__content container posts">
   <div class="row">
     <div class="col-md-8">
       <h1 class="text-center my-4">
-        <small>{{ titleName }} Category</small>
+        <small>{{ categoryName }} Category</small>
       </h1>
       <!--Dynamic posts-->
       <div *ngFor='let post of posts' class="card card--background-transparent mb-4">
@@ -47,7 +47,7 @@
             <div class="col-lg-6">
               <ul class="list-unstyled mb-0">
                 <li *ngFor='let category of categories'>
-                  <a *ngIf='category.payload.doc.data().name != titleName' routerLink="/{{ category.payload.doc.data().url_path }}">{{ category.payload.doc.data().name }}</a>
+                  <a *ngIf='category.payload.doc.data().name != categoryName' routerLink="/{{ category.payload.doc.data().url_path }}">{{ category.payload.doc.data().name }}</a>
                 </li>
               </ul>
             </div>

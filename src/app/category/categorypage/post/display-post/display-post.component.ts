@@ -12,6 +12,7 @@ export class DisplayPostComponent implements OnInit {
 
   post: any;
   comments: Array<any>;
+  categoryName: any;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService) {
     this.titleService.setTitle('Divinity - Post');

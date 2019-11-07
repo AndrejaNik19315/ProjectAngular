@@ -14,15 +14,17 @@
             <h2 class="card-title">Post title here</h2>
            <!-- <img *ngIf="post.payload.doc.data().photoURL !== null && post.payload.doc.data().photoURL !== ''" class="card-img-top card-img-compact" src="../../../assets/images/placeholders/placeholder_post.png" alt="post_alt">-->
             <p class="card-text mt-2">Some description</p>
-            <div class="pl-2 pr-2 text-muted card-footer">
-              Posted on Date by
-              <img class="avatar" src="#" alt="user_image"/> <a href="#">User</a>
+            <div class="pl-2 pr-2 text-muted post-user">
+              Posted on Date by <span class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg"/>SpiritAnimal</a></span>
             </div>
           </div>
         </div>
       </div>
       <div class="comments col-md-12">
-        Comments...
+        <div class="comment">
+          <div class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg">SpiritAnimal</a><span class="text-muted"> 3 minutes ago</span></div>
+          <div class="user-comment p-3">Some generic comment here...</div>
+        </div>
       </div>
     </div>
     </div>

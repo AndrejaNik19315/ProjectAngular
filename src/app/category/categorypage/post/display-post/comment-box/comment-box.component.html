@@ -1,3 +1,9 @@
-<p>
-  comment-box works!
-</p>
+<div class="comment-box col-md-8 col-sm-10 mb-4">
+    <span>Leave a comment</span>
+    <form [formGroup]="commentForm" (ngSubmit)="tryComment(commentForm.value)">
+      <textarea formControlName="comment"></textarea>
+      <div class="comment-box--footer">
+        <input value="Comment" type="submit"/><input value="Cancel" type="reset"/>
+      </div>
+    </form>
+</div>

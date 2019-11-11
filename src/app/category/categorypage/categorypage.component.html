@@ -18,7 +18,7 @@
           <p class="card-text mt-2">{{post.payload.doc.data().description}}</p>
           <hr/>
           <div class="pl-2 pr-2 text-muted">
-            Posted on {{post.payload.doc.data().createAt.toDate() | date: 'medium'}} by
+            Posted on {{post.payload.doc.data().createdAt.toDate() | date: 'medium'}} by
             <a href="user/{{post.payload.doc.data().uid}}">{{post.payload.doc.data().username}}</a>
           </div>
         </div>

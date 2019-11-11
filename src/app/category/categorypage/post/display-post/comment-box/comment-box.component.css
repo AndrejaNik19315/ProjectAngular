@@ -1,0 +1,35 @@
+textarea{
+    width: inherit;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.1);
+    max-height: inherit;
+    min-height: inherit;
+}
+
+form{
+    width: inherit;
+}
+
+.comment-box{
+    max-width: 100%;
+    min-width: 300px;
+    min-height: 70px;
+    max-height: 150px;
+    margin: 0px auto;
+}
+
+.comment-box input[type="submit"]{
+    border:none;
+    color: #fff;
+    background-color: #333;
+}
+
+.comment-box input[type="reset"]{
+    border: unset;
+    background-color: unset;
+    color: #d62222;
+}
+
+.comment-box input{
+    float: right;
+}

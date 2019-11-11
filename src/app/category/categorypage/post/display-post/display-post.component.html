@@ -7,28 +7,34 @@
                 (categoryName=='Random') ? 'category__section--random' : 'category__section'">
     <div class="category__content container">
     <div class="row">
+      <!--Post -->
       <div class="post col-md-12">
-        <!--Dynamic post-->
         <div class="card card--background-transparent mb-4">
           <div class="card-body">
-            <h2 class="card-title">Post title here</h2>
-           <!-- <img *ngIf="post.payload.doc.data().photoURL !== null && post.payload.doc.data().photoURL !== ''" class="card-img-top card-img-compact" src="../../../assets/images/placeholders/placeholder_post.png" alt="post_alt">-->
-            <p class="card-text mt-2">Some description</p>
+            <h2 class="card-title">{{post.payload.data().title}}</h2>
+            <img *ngIf="post.payload.data().photoURL !== null && post.payload.data().photoURL !== ''" class="card-img-top card-img-compact" src="{{post.payload.data().photoURL}}" alt="postImage_alt">
+            <p class="card-text mt-2">{{post.payload.data().description}}</p>
             <div class="pl-2 pr-2 text-muted post-user">
-              Posted on Date by <span class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg"/>SpiritAnimal</a></span>
+              Posted on {{post.payload.data().createdAt.toDate() | date: 'medium'}} by <span class="user-section"><a href="user/{{post.payload.data().uid}}"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg"/>{{post.payload.data().username}}</a></span>
             </div>
           </div>
         </div>
       </div>
-      <div class="comment-box col-md-12 mb-4">
-        <textarea></textarea>
-        <input name="Submit" type="submit"/><input name="Cancel" type="reset"/>
+      <!--To separate comment-box to its own component -->
+      <div class="comment-box col-md-8 col-sm-10 mb-4" *ngIf="authService.isLoggedIn == true">
+        <span>Leave a comment</span>
+        <form [formGroup]="commentForm" (ngSubmit)="tryComment(commentForm.value)">
+          <textarea formControlName="comment"></textarea>
+          <div class="comment-box--footer">
+            <input value="Comment" type="submit"/><input value="Cancel" type="reset"/>
+          </div>
+        </form>
       </div>
       <!--To separate comments to its own component-->
       <div class="comments col-md-12">
-        <div class="comment">
-          <div class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg">SpiritAnimal</a><span class="text-muted"> 3 minutes ago</span></div>
-          <div class="user-comment p-3">Some generic comment here...</div>
+        <div *ngFor="let comment of comments" class="comment">
+          <div class="user-section"><a href="user/{{comment.payload.doc.data().uid}}"><img class="avatar" src="{{comment.payload.doc.data().photoURL}}" alt="user_avatar.jpg">{{comment.payload.doc.data().username}}</a><span class="text-muted"> {{timePassed(post.payload.data().createdAt.toDate().getTime())}}</span></div>
+          <div class="user-comment p-3">{{comment.payload.doc.data().comment}}</div>
         </div>
       </div>
     </div>

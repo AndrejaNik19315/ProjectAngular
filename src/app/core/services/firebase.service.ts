@@ -106,8 +106,21 @@ getCategoryPosts(categoryId){
 
 getCategoryPost(categoryId, postId){
   return new Promise<any>((resolve, reject) => {
-    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).snapshotChanges().subscribe(
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).snapshotChanges()
+    .subscribe(
       (response) => resolve(response),
+      (error) => reject(error)
+    );
+  });
+}
+
+//Comments
+//GET
+getCategoryPostComments(categoryId, postId){
+  return new Promise<any>((resovle, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments').snapshotChanges()
+    .subscribe(
+      (response) => resovle(response),
       (error) => reject(error)
     );
   });

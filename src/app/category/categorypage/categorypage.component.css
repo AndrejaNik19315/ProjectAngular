@@ -1,6 +1,5 @@
-.widgets{
-    position: absolute;
-    right: 0%;
+a{
+    text-decoration: none;
 }
 
 .search__card input{

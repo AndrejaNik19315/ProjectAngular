@@ -37,17 +37,17 @@ export class DisplayPostComponent implements OnInit {
       () => {
         this.categoryName = this.route.snapshot.params['name'].charAt(0).toUpperCase() + this.route.snapshot.params['name'].slice(1);
         this.categoryPath = 'category/' + this.route.snapshot.params.name;
-        this.getPostData(this.categoryPath, this.route.snapshot.params.postId);
       });
 
+    this.getPostData(this.categoryPath, this.route.snapshot.params.postId);
   }
 
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
   }
 
-  getPostData(categoryPath, postId){
-    this.firebaseService.getCategory(categoryPath).then(result => {
+  async getPostData(categoryPath, postId){
+    await this.firebaseService.getCategory(categoryPath).then(result => {
       this.categoryId = result[0].payload.doc.id;
     }).then(() => {
       this.firebaseService.getCategoryPost(this.categoryId, postId)
@@ -64,47 +64,51 @@ export class DisplayPostComponent implements OnInit {
 
   tryComment(values){
     console.log(values);
+
+    let comment = document.createElement('div');
+    let userSection = document.createElement('div');
+    let userComment = document.createElement('div')
+    document.getElementsByClassName('comments')[0].appendChild(comment.appendChild(document.createElement("div"))).classList.add("comment");
   }
 
-  timePassed(timestamp){
-    let currentTime = new Date().getTime();
-    let subTime = new Date(currentTime - timestamp);
+  timePassed(timestamp: Date){
+    let timeDiff = new Date(Math.abs(new Date().getTime() - timestamp.getTime()));
     let time;
 
-    if(subTime.getSeconds() == 1){
+    if(timeDiff.getUTCSeconds() == 1){
       time = "1 second ago";
     }
-    if(subTime.getSeconds() > 1 && subTime.getMinutes() < 1){
-      time = subTime.getSeconds() + " seconds ago";
+    if(timeDiff.getUTCSeconds() > 1 && timeDiff.getUTCMinutes() < 1){
+      time = timeDiff.getUTCSeconds() + " seconds ago";
     }
-    if(subTime.getMinutes() >= 1 && subTime.getMinutes() < 2){
-      time = subTime.getMinutes() + " minute ago";
+    if(timeDiff.getUTCMinutes() >= 1 && timeDiff.getUTCMinutes() < 2){
+      time = timeDiff.getUTCMinutes() + " minute ago";
     }
-    if(subTime.getMinutes() >= 2 && subTime.getHours() < 1){
-      time = subTime.getMinutes() + " minutes ago";
+    if(timeDiff.getUTCMinutes() >= 2 && timeDiff.getUTCHours() < 1){
+      time = timeDiff.getMinutes() + " minutes ago";
     }
-    if(subTime.getHours() >= 1 && subTime.getHours() < 2){
-      time = subTime.getHours() + " hour ago";
+    if(timeDiff.getUTCHours() >= 1 && timeDiff.getUTCHours() < 2){
+      time = timeDiff.getUTCHours() + " hour ago";
     }
-    if(subTime.getHours() >= 2 && subTime.getDay() < 1){
-      time = subTime.getHours() + " hours ago";
+    if(timeDiff.getUTCHours() >= 2 && timeDiff.getUTCDate() < 1){
+      time = timeDiff.getUTCHours() + " hours ago";
     }
-    if(subTime.getDay() == 1){
-      time = subTime.getDay() + " day ago";
+    if(timeDiff.getUTCDate() == 1){
+      time = timeDiff.getUTCDate() + " day ago";
     }
-    if(subTime.getDay() >= 2 && subTime.getMonth() < 1){
-      time = subTime.getDay() + " days ago";
+    if(timeDiff.getUTCDate() >= 2 && timeDiff.getUTCMonth() < 1){
+      time = timeDiff.getDate() + " days ago";
     }
-    if(subTime.getMonth() == 1){
-      time = subTime.getMonth() + " month ago";
+    if(timeDiff.getUTCMonth() == 1){
+      time = timeDiff.getUTCMonth() + " month ago";
     }
-    if(subTime.getMonth() >= 1 && subTime.getMonth() < 12){
-      time = subTime.getMonth() + " months ago";
+    if(timeDiff.getUTCMonth() >= 1 && timeDiff.getUTCMonth() < 12){
+      time = timeDiff.getUTCMonth() + " months ago";
     }
-    if(subTime.getMonth() == 12){
+    if(timeDiff.getUTCMonth() == 12){
       time = "1 year ago";
     }
-    if(subTime.getMonth() >= 12){
+    if(timeDiff.getUTCMonth() >= 12){
       time = "more than an year ago";
     }
 

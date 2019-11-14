@@ -24,7 +24,7 @@
         <form [formGroup]="commentForm" (ngSubmit)="tryComment(commentForm.value)">
           <textarea formControlName="comment"></textarea>
           <div class="comment-box--footer">
-            <input value="Comment" type="submit"/><input value="Cancel" type="reset"/>
+            <input [ngClass]="commentForm.invalid ? 'btn-disabled' : ''" value="Comment" type="submit" [disabled]='commentForm.invalid'/><input value="Cancel" type="reset"/>
           </div>
         </form>
       </div>

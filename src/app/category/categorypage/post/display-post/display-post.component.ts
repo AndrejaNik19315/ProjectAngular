@@ -29,10 +29,8 @@ export class DisplayPostComponent implements OnInit {
 
   ngOnInit() {
     this.commentForm = new FormGroup({
-      'comment': new FormControl(null, [
-        Validators.required
-      ])
-    });
+      'comment': new FormControl()
+    }, this.commentValidator());
 
     this.paramsSubscription = this.route.params.subscribe(
       () => {
@@ -47,8 +45,8 @@ export class DisplayPostComponent implements OnInit {
     this.paramsSubscription.unsubscribe();
   }
 
-  async getPostData(categoryPath, postId){
-    await this.firebaseService.getCategory(categoryPath).then(result => {
+  getPostData(categoryPath, postId){
+    this.firebaseService.getCategory(categoryPath).then(result => {
       this.categoryId = result[0].payload.doc.id;
     }).then(() => {
       this.firebaseService.getCategoryPost(this.categoryId, postId)
@@ -64,6 +62,8 @@ export class DisplayPostComponent implements OnInit {
   }
 
   tryComment(values){
+    //validate comment
+    
     //prepare data
     values.uid = this.user.uid;
     values.photoURL = this.user.photoURL;
@@ -78,6 +78,28 @@ export class DisplayPostComponent implements OnInit {
       comment.className = 'comment';
     })
     .catch(error => console.log(error));
+  }
+
+  commentValidator(){
+    return function (control: FormControl) {
+      let comment = control.get('comment');
+      if(comment.value !== null){
+        if(comment.value.trim() !== ""){
+          if(comment.value.trim().length < 256){
+            return null;
+          }
+          else{
+            return {comment: "Comment cannot be longer than 256 characters."}
+          }
+        }
+        else{
+          return {comment: "Comment out of format."};
+        }
+      }
+      else{
+        return {comment: "Comment cannot be empty"};
+      }
+    }
   }
 
   timePassed(timestamp: Date){

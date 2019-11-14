@@ -21,6 +21,7 @@ export class DisplayPostComponent implements OnInit {
   commentForm: FormGroup;
   errorMessage: string;
   paramsSubscription: Subscription;
+  user: any = JSON.parse(localStorage.getItem('user'));
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - Post');
@@ -63,52 +64,62 @@ export class DisplayPostComponent implements OnInit {
   }
 
   tryComment(values){
-    console.log(values);
 
-    let comment = document.createElement('div');
-    let userSection = document.createElement('div');
-    let userComment = document.createElement('div')
-    document.getElementsByClassName('comments')[0].appendChild(comment.appendChild(document.createElement("div"))).classList.add("comment");
+    //prepare data
+    values.uid = this.user.uid;
+    values.photoURL = this.user.photoURL;
+    values.username = this.user.displayName;
+    //write
+    this.firebaseService.postComment(this.categoryId, this.route.snapshot.params.postId, values)
+    .then(result => {
+      console.log(result);
+      let comment = document.createElement('div');
+      comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+this.user.photoURL+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
+      document.getElementsByClassName('comments')[0].prepend(comment);
+      comment.className = 'comment';
+    })
+    .catch(error => console.log(error));
+
   }
 
   timePassed(timestamp: Date){
     let timeDiff = new Date(Math.abs(new Date().getTime() - timestamp.getTime()));
     let time;
 
-    if(timeDiff.getUTCSeconds() == 1){
+    if(timeDiff.getSeconds() == 1){
       time = "1 second ago";
     }
-    if(timeDiff.getUTCSeconds() > 1 && timeDiff.getUTCMinutes() < 1){
-      time = timeDiff.getUTCSeconds() + " seconds ago";
+    if(timeDiff.getSeconds() > 1 && timeDiff.getMinutes() < 1){
+      time = timeDiff.getSeconds() + " seconds ago";
     }
-    if(timeDiff.getUTCMinutes() >= 1 && timeDiff.getUTCMinutes() < 2){
-      time = timeDiff.getUTCMinutes() + " minute ago";
+    if(timeDiff.getMinutes() >= 1 && timeDiff.getMinutes() < 2){
+      time = timeDiff.getMinutes() + " minute ago";
     }
-    if(timeDiff.getUTCMinutes() >= 2 && timeDiff.getUTCHours() < 1){
+    if(timeDiff.getMinutes() >= 2 && timeDiff.getMinutes() < 60){
       time = timeDiff.getMinutes() + " minutes ago";
     }
-    if(timeDiff.getUTCHours() >= 1 && timeDiff.getUTCHours() < 2){
-      time = timeDiff.getUTCHours() + " hour ago";
+    if(timeDiff.getHours() == 1 && timeDiff.getHours() < 2){
+      time = timeDiff.getHours() + " hour ago";
     }
-    if(timeDiff.getUTCHours() >= 2 && timeDiff.getUTCDate() < 1){
-      time = timeDiff.getUTCHours() + " hours ago";
+    if(timeDiff.getHours() >= 2 && timeDiff.getDate() < 1){
+      time = timeDiff.getHours() + " hours ago";
     }
-    if(timeDiff.getUTCDate() == 1){
-      time = timeDiff.getUTCDate() + " day ago";
+    if(timeDiff.getDate() == 1){
+      time = timeDiff.getDate() + " day ago";
     }
-    if(timeDiff.getUTCDate() >= 2 && timeDiff.getUTCMonth() < 1){
+    if(timeDiff.getDate() >= 2 && timeDiff.getMonth() < 1){
       time = timeDiff.getDate() + " days ago";
     }
-    if(timeDiff.getUTCMonth() == 1){
-      time = timeDiff.getUTCMonth() + " month ago";
+    if(timeDiff.getMonth() == 1){
+      time = timeDiff.getMonth() + " month ago";
     }
-    if(timeDiff.getUTCMonth() >= 1 && timeDiff.getUTCMonth() < 12){
-      time = timeDiff.getUTCMonth() + " months ago";
+    if(timeDiff.getMonth() >= 1 && timeDiff.getMonth() < 12){
+      time = timeDiff.getMonth() + " months ago";
     }
-    if(timeDiff.getUTCMonth() == 12){
+    if(timeDiff.getMonth() == 12){
       time = "1 year ago";
     }
-    if(timeDiff.getUTCMonth() >= 12){
+    if(timeDiff.getMonth() >= 12){
       time = "more than an year ago";
     }
 

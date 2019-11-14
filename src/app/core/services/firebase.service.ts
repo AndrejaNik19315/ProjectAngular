@@ -126,6 +126,23 @@ getCategoryPostComments(categoryId, postId){
   });
 }
 
+//POST
+postComment(categoryId, postId, values){
+  return new Promise<any>((resolve,reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments').add({
+      comment: values.comment,
+      createdAt: new Date(),
+      photoURL: values.photoURL,
+      uid: values.uid,
+      username: values.username
+    })
+    .then(res => resolve(res))
+    .catch(error => reject(error));
+  });
+}
+
+//DELETE
+
 //STORAGE
 
 //Images

@@ -64,7 +64,6 @@ export class DisplayPostComponent implements OnInit {
   }
 
   tryComment(values){
-
     //prepare data
     values.uid = this.user.uid;
     values.photoURL = this.user.photoURL;
@@ -79,51 +78,57 @@ export class DisplayPostComponent implements OnInit {
       comment.className = 'comment';
     })
     .catch(error => console.log(error));
-
   }
 
   timePassed(timestamp: Date){
-    let timeDiff = new Date(Math.abs(new Date().getTime() - timestamp.getTime()));
-    let time;
+    //time passed in seconds
+    let timeDiff = Math.round(new Date(Math.abs(new Date().getTime() - timestamp.getTime())).getTime() / 1000); 
+    let timeString;
 
-    if(timeDiff.getSeconds() == 1){
-      time = "1 second ago";
+    if(timeDiff === 1){
+      timeString = "Just now";
     }
-    if(timeDiff.getSeconds() > 1 && timeDiff.getMinutes() < 1){
-      time = timeDiff.getSeconds() + " seconds ago";
+    if(timeDiff > 1 && timeDiff < 60){
+      timeString = timeDiff + " seconds ago";
     }
-    if(timeDiff.getMinutes() >= 1 && timeDiff.getMinutes() < 2){
-      time = timeDiff.getMinutes() + " minute ago";
+    if(timeDiff >= 60 && timeDiff < 120){
+      timeString = "1 minute ago";
     }
-    if(timeDiff.getMinutes() >= 2 && timeDiff.getMinutes() < 60){
-      time = timeDiff.getMinutes() + " minutes ago";
+    if(timeDiff >= 120 && timeDiff < 3600){
+      timeString = Math.round(timeDiff / 60) + " minutes ago";
     }
-    if(timeDiff.getHours() == 1 && timeDiff.getHours() < 2){
-      time = timeDiff.getHours() + " hour ago";
+    if(timeDiff >= 3600 && timeDiff < 7200){
+      timeString = "1 hour ago";
     }
-    if(timeDiff.getHours() >= 2 && timeDiff.getDate() < 1){
-      time = timeDiff.getHours() + " hours ago";
+    if(timeDiff >= 7200 && timeDiff < 86400){
+      timeString = Math.round(timeDiff / 3600) + " hours ago";
     }
-    if(timeDiff.getDate() == 1){
-      time = timeDiff.getDate() + " day ago";
+    if(timeDiff >= 86400 && timeDiff < 172800){
+      timeString =  "1 day ago";
     }
-    if(timeDiff.getDate() >= 2 && timeDiff.getMonth() < 1){
-      time = timeDiff.getDate() + " days ago";
+    if(timeDiff >= 172800 && timeDiff < 604800){
+      timeString = Math.round(timeDiff / 86400) + " days ago";
     }
-    if(timeDiff.getMonth() == 1){
-      time = timeDiff.getMonth() + " month ago";
+    if(timeDiff >= 604800 && timeDiff < 1209600){
+      timeString ="1 week ago";
     }
-    if(timeDiff.getMonth() >= 1 && timeDiff.getMonth() < 12){
-      time = timeDiff.getMonth() + " months ago";
+    if(timeDiff >= 1209600 && timeDiff < 2629743.83){
+      timeString = Math.round(timeDiff / 604800) + " weeks ago";
     }
-    if(timeDiff.getMonth() == 12){
-      time = "1 year ago";
+    if(timeDiff >= 2629743.83 && 5259487.66){
+      timeString = "1 month ago";
     }
-    if(timeDiff.getMonth() >= 12){
-      time = "more than an year ago";
+    if(timeDiff >= 5259487.66 && timeDiff < 31556926){
+      timeString = Math.round(timeDiff / 2629743.83)+" months ago";
+    }
+    if(timeDiff >= 31556926 && timeDiff < 63113851.9){
+      timeString = "1 year ago"
+    }
+    if(timeDiff >= 63113851.9){
+      timeString = "More than an year ago";
     }
 
-    return time;
+    return timeString;
   }
 
 }

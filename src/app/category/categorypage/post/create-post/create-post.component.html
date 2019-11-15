@@ -1,5 +1,8 @@
-<app-navigation></app-navigation>
-<div>
-  
+<div class="postForm p-2">
+  <form [formGroup]="postForm" (ngSubmit)="tryPost(postForm.values)">
+    <input type="text" formControlName="title" placeholder="Title" required>
+    <input type="file" formControlName="file">
+    <textarea formControlName="description" required></textarea>
+    <input type="submit" value="Post"><input type="reset" value="Cancel">
+  </form>
 </div>
-<app-footer></app-footer>

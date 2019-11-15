@@ -1,0 +1,42 @@
+.postForm form > :nth-child(1), :nth-child(2), :nth-child(3){
+    display: block;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.postForm form > :nth-child(1) {
+    background-color: transparent;
+    border: unset;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    outline: none;
+    font-size: 22px;
+}
+
+.postForm form > :nth-child(2) {
+    margin: 5px 0px;
+}
+
+.postForm form > :nth-child(3) {
+    background-color: rgba(0, 0, 0, 0.1);
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    min-height: 100px;
+    max-height: 350px;
+}
+
+.postForm form > :nth-child(4), :nth-child(5) {
+    float: right;
+    border: unset;
+    background-color: transparent;
+    padding: 5px;
+    margin: 5px 3px;
+}
+
+.postForm form > :nth-child(4){
+    background-color: #333;
+    color: #fff;
+}
+
+.postForm form > :nth-child(5){
+    color: #d62222;
+}

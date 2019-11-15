@@ -3,6 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirebaseService } from './../../core/services/firebase.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-categorypage',
@@ -17,7 +18,7 @@ export class CategorypageComponent implements OnInit, OnDestroy {
   paramsSubscription: Subscription;
   categoryName: any;
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
   }
 

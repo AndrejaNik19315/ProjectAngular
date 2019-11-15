@@ -24,13 +24,14 @@
         <form [formGroup]="commentForm" (ngSubmit)="tryComment(commentForm.value)">
           <textarea formControlName="comment"></textarea>
           <div class="comment-box--footer">
+            <span *ngIf="errorMessage != null && errorMessage != '' && commentForm.invalid" class="text-danger">{{errorMessage}}</span>
             <input [ngClass]="commentForm.invalid ? 'btn-disabled' : ''" value="Comment" type="submit" [disabled]='commentForm.invalid'/><input value="Cancel" type="reset"/>
           </div>
         </form>
       </div>
       <div class="comments col-md-12">
         <div *ngFor="let comment of comments" class="comment">
-          <div class="user-section"><a href="user/{{comment.payload.doc.data().uid}}"><img class="avatar" src="{{comment.payload.doc.data().photoURL}}" alt="user_avatar.jpg">{{comment.payload.doc.data().username}}</a><span class="text-muted"> {{timePassed(comment.payload.doc.data().createdAt.toDate())}}</span></div>
+          <div class="user-section"><a href="user/{{comment.payload.doc.data().uid}}"><img class="avatar" src="{{comment.payload.doc.data().photoURL}}" alt="user_avatar.jpg">{{comment.payload.doc.data().username}}</a><span class="text-muted"> {{timeElapsed(comment.payload.doc.data().createdAt.toDate())}}</span></div>
           <div class="user-comment p-3">{{comment.payload.doc.data().comment}}</div>
         </div>
       </div>

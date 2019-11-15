@@ -29,8 +29,8 @@ export class DisplayPostComponent implements OnInit {
 
   ngOnInit() {
     this.commentForm = new FormGroup({
-      'comment': new FormControl()
-    }, this.commentValidator());
+      'comment' : new FormControl(null, [Validators.required, Validators.maxLength(256)])
+    }, this.whitespaceValidator);
 
     this.paramsSubscription = this.route.params.subscribe(
       () => {
@@ -62,49 +62,42 @@ export class DisplayPostComponent implements OnInit {
   }
 
   tryComment(values){
-    //validate comment
-    
+    if(this.commentForm.valid){
+    this.errorMessage = null;
     //prepare data
     values.uid = this.user.uid;
     values.photoURL = this.user.photoURL;
     values.username = this.user.displayName;
     //write
     this.firebaseService.postComment(this.categoryId, this.route.snapshot.params.postId, values)
-    .then(result => {
-      console.log(result);
+    .then(() => {
       let comment = document.createElement('div');
       comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+this.user.photoURL+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
       document.getElementsByClassName('comments')[0].prepend(comment);
       comment.className = 'comment';
     })
     .catch(error => console.log(error));
-  }
-
-  commentValidator(){
-    return function (control: FormControl) {
-      let comment = control.get('comment');
-      if(comment.value !== null){
-        if(comment.value.trim() !== ""){
-          if(comment.value.trim().length < 256){
-            return null;
-          }
-          else{
-            return {comment: "Comment cannot be longer than 256 characters."}
-          }
-        }
-        else{
-          return {comment: "Comment out of format."};
-        }
-      }
-      else{
-        return {comment: "Comment cannot be empty"};
-      }
+    }
+    else{
+      this.errorMessage = "Comment is invalid.";
     }
   }
 
-  timePassed(timestamp: Date){
+  whitespaceValidator(control: FormControl){
+      let comment = control.get('comment');
+      if(comment.value != null){
+        if(comment.value.trim() !== ""){
+          return null;
+        }
+        else{
+          return {comment: true};
+        }
+      }
+  }
+
+  timeElapsed(timestamp: Date){
     //time passed in seconds
-    let timeDiff = Math.round(new Date(Math.abs(new Date().getTime() - timestamp.getTime())).getTime() / 1000); 
+    let timeDiff = Math.round(new Date(Math.abs(new Date().getTime() - timestamp.getTime())).getTime() / 1000);
     let timeString;
 
     if(timeDiff === 1){

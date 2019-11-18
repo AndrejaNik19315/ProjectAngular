@@ -17,6 +17,7 @@ export class CategorypageComponent implements OnInit, OnDestroy {
   posts: Array<any>;
   paramsSubscription: Subscription;
   categoryName: any;
+  postData: Array<object>;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
@@ -52,11 +53,33 @@ export class CategorypageComponent implements OnInit, OnDestroy {
     }).then(() => {
       this.firebaseService.getCategoryPosts(this.category.id)
        .then(result => {
-          //console.log(result[0].payload.doc.data().uid);
+          //console.log(result);
+          for(let i; i < result.length; i++){
+            this.postData.push(result.payload.doc.data());
+ 
+          }
+          // result.forEach(element => {
+          //   console.log(element.payload.doc.data());
+          //   this.postData += element.payload.doc.data();
+          // });
+
+          console.log(this.postData);
+
+          // this.postData.forEach(element => {
+          //   //console.log(element.payload.doc.data());
+          //   this.firebaseService.getUser(element.payload.doc.data().uid)
+          //   .then(result => {
+          //     element.payload.doc.data().displayName = result[0].payload.doc.data().displayName;
+          //     console.log(element.payload.doc.data());
+          //   })
+          //   .catch(error => console.log(error));
+
+          //   //console.log(element.payload.doc.data());
+          // });
+          //temporary
           this.posts = result;
-          this.firebaseService.getUser(result[0].payload.doc.data().uid)
         })
-       .catch(error => this.posts = error);
+       .catch(error => console.log(error));
     });
   }
 }

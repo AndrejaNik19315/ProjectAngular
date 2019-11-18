@@ -1,6 +1,6 @@
-<div class="comments col-md-12">
-    <div class="comment">
-      <div class="user-section"><a href="#"><img class="avatar" src="https://firebasestorage.googleapis.com/v0/b/divinityproject-31d93.appspot.com/o/userAvatars%2F1572893139188_hidethepain.jpg?alt=media&token=98f87840-e44a-4ecc-8d53-a1191125be75" alt="user_avatar.jpg">SpiritAnimal</a><span class="text-muted"> 3 minutes ago</span></div>
-      <div class="user-comment p-3">Some generic comment here...</div>
-    </div>
+<div class="comments">
+  <div *ngFor="let comment of comments" class="comment">
+    <div class="user-section"><a href="user/{{comment.uid}}"><img *ngIf="comment.photoURL != null && comment.photoURL != ''" class="avatar" src="{{comment.photoURL}}" alt="userAvatar.jpg"/><img *ngIf="comment.photoURL == null || comment.photoURL == ''" class="avatar" src="../../../../../assets/images/placeholders/placeholder_avatar.jpg" alt="userAvatar.jpg"/>{{comment.displayName}}</a><span class="text-muted"> {{timeElapsed(comment.createdAt.toDate())}}</span></div>
+    <div class="user-comment p-3">{{comment.comment}}</div>
+  </div>
 </div>

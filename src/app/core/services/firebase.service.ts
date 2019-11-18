@@ -131,7 +131,7 @@ postCategoryPost(categoryId, values){
 
 //Comments
 //GET
-getCategoryPostComments(categoryId, postId){
+getPostComments(categoryId, postId){
   return new Promise<any>((resovle, reject) => {
     this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments', ref => ref.orderBy('createdAt', 'desc')).snapshotChanges()
     .subscribe(
@@ -147,9 +147,7 @@ postComment(categoryId, postId, values){
     this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments').add({
       comment: values.comment,
       createdAt: new Date(),
-      photoURL: values.photoURL,
-      uid: values.uid,
-      username: values.username
+      uid: values.uid
     })
     .then(res => resolve(res))
     .catch(error => reject(error));

@@ -27,11 +27,6 @@
     float: right;
 }
 
-.postForm--footer span{
-   
-} 
-
-
 .postForm--footer > input[type='submit']{
     background-color: #333;
     color: #fff;

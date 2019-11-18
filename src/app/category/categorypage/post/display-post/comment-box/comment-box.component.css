@@ -1,20 +1,20 @@
 textarea{
-    width: inherit;
+    width: 100%;
     display: block;
     background-color: rgba(0, 0, 0, 0.1);
     max-height: inherit;
     min-height: inherit;
+    outline: none;
 }
 
 form{
-    width: inherit;
-}
-
-.comment-box{
     max-width: 100%;
     min-width: 300px;
     min-height: 70px;
     max-height: 150px;
+}
+
+.comment-box{
     margin: 0px auto;
 }
 
@@ -32,4 +32,18 @@ form{
 
 .comment-box input{
     float: right;
+}
+
+.btn-disabled{
+    background-color: #aaa !important;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
 }

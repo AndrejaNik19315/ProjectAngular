@@ -2,49 +2,12 @@ a{
     text-decoration: none;
 }
 
-textarea{
-    width: inherit;
-    display: block;
-    background-color: rgba(0, 0, 0, 0.1);
-    max-height: inherit;
-    min-height: inherit;
-    outline: none;
-}
-
-form{
-    width: inherit;
-    max-width: 100%;
-    min-width: 300px;
-    min-height: 70px;
-    max-height: 150px;
-}
-
 .avatar {
     width: 40px;
     height: 40px;
     padding: 2px;
     margin: 5px;
     border: 1px solid #d62222;
-}
-
-.comment-box{
-    margin: 0px auto;
-}
-
-.comment-box input[type="submit"]{
-    border:none;
-    color: #fff;
-    background-color: #333;
-}
-
-.comment-box input[type="reset"]{
-    border: unset;
-    background-color: unset;
-    color: #d62222;
-}
-
-.comment-box input{
-    float: right;
 }
 
 .post-user{
@@ -57,8 +20,4 @@ form{
 .user-comment{
     overflow: hidden;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-}
-
-.btn-disabled{
-    background-color: #aaa !important;
 }

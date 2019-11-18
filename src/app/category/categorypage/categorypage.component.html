@@ -11,16 +11,15 @@
         <small>{{ categoryName }} Category</small>
       </h1>
       <app-create-post *ngIf="authService.isLoggedIn === true"></app-create-post>
-      <!--Dynamic posts-->
-      <div *ngFor='let post of posts' class="posts card card--background-transparent mb-4">
+      <div *ngFor='let post of postData' class="posts card card--background-transparent mb-4">
         <div class="card-body">
-          <a href="category/{{route.snapshot.params['name']}}/posts/{{post.payload.doc.id}}"><h3 class="card-title">{{post.payload.doc.data().title}}</h3></a>
-          <img *ngIf="post.payload.doc.data().postPhotoURL !== null && post.payload.doc.data().postPhotoURL !== ''" class="card-img-top card-img-compact" src="{{post.payload.doc.data().postPhotoURL}}" alt="postImage.jpg">
-          <p class="card-text mt-2">{{post.payload.doc.data().description}}</p>
+          <a href="category/{{route.snapshot.params['name']}}/posts/{{post.pid}}"><h3 class="card-title">{{post.title}}</h3></a>
+          <img *ngIf="post.postPhotoURL !== null && post.postPhotoURL !== ''" class="card-img-top card-img-compact" src="{{post.postPhotoURL}}" alt="postImage.jpg">
+          <p class="card-text mt-2">{{post.description}}</p>
           <hr/>
           <div class="pl-2 pr-2 text-muted">
-            Posted on {{post.payload.doc.data().createdAt.toDate() | date: 'dd-MMM-yyyy'}} by
-            <a href="user/{{post.payload.doc.data().uid}}">{{post.payload.doc.data().username}}</a>
+            Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by
+            <a href="user/{{post.uid}}">{{post.displayName}}</a>
           </div>
         </div>
       </div>

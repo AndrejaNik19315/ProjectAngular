@@ -27,8 +27,10 @@ export class UserEditComponent implements OnInit {
   successMessage: string;
 
   @HostListener('change', ['$event.target.files']) emitFile( event: File ) {
-    const file = event[0];
-    this.file = file;
+    if(event != null){
+      const file = event[0];
+      this.file = file;
+    }
   }
 
   constructor(private titleService: Title, private authService: AuthService, private firebaseService: FirebaseService, private spinner: NgxSpinnerService) {
@@ -60,7 +62,8 @@ export class UserEditComponent implements OnInit {
     if(flag === true){
       //If image is set upload it
       if(this.file !== null){
-        await this.firebaseService.uploadImage(this.file)
+        let storagePath = "userAvatars";
+        await this.firebaseService.uploadImage(storagePath, this.file)
         .then(res => {
           this.photoURL = res.split('&')[0];
           values.photoURL = this.photoURL;

@@ -31,7 +31,7 @@
       </div>
       <div class="comments col-md-12">
         <div *ngFor="let comment of comments" class="comment">
-          <div class="user-section"><a href="user/{{comment.payload.doc.data().uid}}"><img class="avatar" src="{{comment.payload.doc.data().photoURL}}" alt="user_avatar.jpg">{{comment.payload.doc.data().username}}</a><span class="text-muted"> {{timeElapsed(comment.payload.doc.data().createdAt.toDate())}}</span></div>
+          <div class="user-section"><a href="user/{{comment.payload.doc.data().uid}}"><img *ngIf="comment.payload.doc.data().photoURL != null && comment.payload.doc.data().photoURL != ''" class="avatar" src="{{comment.payload.doc.data().photoURL}}" alt="userAvatar.jpg"/><img *ngIf="comment.payload.doc.data().photoURL == null || comment.payload.doc.data().photoURL == ''" class="avatar" src="../../../../../assets/images/placeholders/placeholder_avatar.jpg" alt="userAvatar.jpg"/>{{comment.payload.doc.data().username}}</a><span class="text-muted"> {{timeElapsed(comment.payload.doc.data().createdAt.toDate())}}</span></div>
           <div class="user-comment p-3">{{comment.payload.doc.data().comment}}</div>
         </div>
       </div>

@@ -1,8 +1,20 @@
-<div class="postForm p-2">
-  <form [formGroup]="postForm" (ngSubmit)="tryPost(postForm.values)">
-    <input type="text" formControlName="title" placeholder="Title" required>
-    <input type="file" formControlName="file">
-    <textarea formControlName="description" required></textarea>
-    <input type="submit" value="Post"><input type="reset" value="Cancel">
+<div class="postForm p-2 clearfix">
+  <form [formGroup]="postForm" (ngSubmit)="tryPost(postForm.value)">
+    <div class="postForm--body">
+      <input type="text" formControlName="postTitle" placeholder="Title"/>
+      <input  #file type="file" formControlName="postImage"/>
+      <textarea formControlName="postDescription"></textarea>
+    </div>
+    <div class="postForm--footer">
+      <span *ngIf="errorMessage != null && errorMessage != ''" class="text-danger">{{errorMessage}}</span>
+      <input [ngClass]="postForm.invalid ? 'btn-disabled' : ''" type="submit" value="Post" [disabled]="postForm.invalid"/><input type="reset" value="Cancel"/>
+    </div>
   </form>
 </div>
+<ngx-spinner 
+bdColor = "rgba(0,0,0,0.3)"
+size = "medium"
+color = "#333"
+type = "line-scale"
+[fullScreen] = "true">
+<p style="font-size: 20px;">Saving...</p></ngx-spinner>

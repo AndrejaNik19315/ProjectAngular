@@ -51,7 +51,11 @@ export class CategorypageComponent implements OnInit, OnDestroy {
       this.category = result[0].payload.doc;
     }).then(() => {
       this.firebaseService.getCategoryPosts(this.category.id)
-       .then(result => this.posts = result)
+       .then(result => {
+          //console.log(result[0].payload.doc.data().uid);
+          this.posts = result;
+          this.firebaseService.getUser(result[0].payload.doc.data().uid)
+        })
        .catch(error => this.posts = error);
     });
   }

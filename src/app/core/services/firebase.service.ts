@@ -114,6 +114,21 @@ getCategoryPost(categoryId, postId){
   });
 }
 
+//POST
+postCategoryPost(categoryId, values){
+  return new Promise<any>((resovle, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').add({
+      createdAt: new Date(),
+      description: values.postDescription,
+      postPhotoURL: values.postImage,
+      title: values.postTitle,
+      uid: values.uid
+    })
+    .then(res => resovle(res))
+    .catch(error => reject(error));
+  });
+}
+
 //Comments
 //GET
 getCategoryPostComments(categoryId, postId){
@@ -147,9 +162,9 @@ postComment(categoryId, postId, values){
 
 //Images
   //UPLOAD
-  uploadImage(event: File){
+  uploadImage(storagePath: string, event: File){
       const file = event;
-      let path = "userAvatars/" + new Date().getTime() + "_" + file.name;
+      let path = storagePath + "/" + new Date().getTime() + "_" + file.name;
       return this.storage.upload(path, file)
       .then(res => res.ref.getDownloadURL())
       .catch(error => error.message);

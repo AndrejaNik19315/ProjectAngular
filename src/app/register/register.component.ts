@@ -86,7 +86,8 @@ export class RegisterComponent implements OnInit {
     });
 
     await users.forEach(user => {
-      if(displayName == user.payload.doc.data().displayName){
+      if(displayName == user.payload.doc.data().displayName) {
+        this.successMessage = "";
         this.errorMessage = "Username taken";
         flag = false;
       }

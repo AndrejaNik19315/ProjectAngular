@@ -4,17 +4,17 @@
                   (categoryName=='Lore') ? 'category__section--lore' : 
                   (categoryName=='Builds') ? 'category__section--builds' :
                   (categoryName=='Random') ? 'category__section--random' : 'category__section'">
- <div class="category__content container posts">
+ <div class="category__content container">
   <div class="row">
     <div class="col-md-8 col-sm-12 col-xs-12">
       <h1 class="text-center">
         <small>{{ categoryName }} Category</small>
       </h1>
-      <app-create-post></app-create-post>
+      <app-create-post *ngIf="authService.isLoggedIn === true"></app-create-post>
       <!--Dynamic posts-->
-      <div *ngFor='let post of posts' class="card card--background-transparent mb-4">
+      <div *ngFor='let post of posts' class="posts card card--background-transparent mb-4">
         <div class="card-body">
-          <a href="category/{{route.snapshot.params['name']}}/posts/{{post.payload.doc.id}}"><h2 class="card-title">{{post.payload.doc.data().title}}</h2></a>
+          <a href="category/{{route.snapshot.params['name']}}/posts/{{post.payload.doc.id}}"><h3 class="card-title">{{post.payload.doc.data().title}}</h3></a>
           <img *ngIf="post.payload.doc.data().postPhotoURL !== null && post.payload.doc.data().postPhotoURL !== ''" class="card-img-top card-img-compact" src="{{post.payload.doc.data().postPhotoURL}}" alt="postImage.jpg">
           <p class="card-text mt-2">{{post.payload.doc.data().description}}</p>
           <hr/>

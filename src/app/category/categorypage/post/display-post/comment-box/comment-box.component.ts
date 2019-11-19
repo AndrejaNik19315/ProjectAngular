@@ -43,7 +43,7 @@ export class CommentBoxComponent implements OnInit {
     this.firebaseService.postComment(this.categoryId, this.postId, values)
     .then(() => {
       let comment = document.createElement('div');
-      comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+this.user.photoURL+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
+      comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+(this.user.photoURL != null && this.user.photoURL != '' ? this.user.photoURL : '../../../../../assets/images/placeholders/placeholder_avatar.jpg')+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
       document.getElementsByClassName('comments')[0].prepend(comment);
       comment.className = 'comment';
     })

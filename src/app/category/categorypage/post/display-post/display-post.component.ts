@@ -19,7 +19,6 @@ export class DisplayPostComponent implements OnInit {
   categoryName: string;
   commentForm: FormGroup;
   errorMessage: string;
-  paramsSubscription: Subscription;
   user: any = JSON.parse(localStorage.getItem('user'));
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
@@ -35,10 +34,6 @@ export class DisplayPostComponent implements OnInit {
     }).then(() => {
       this.getPostData(this.categoryId, this.route.snapshot.params.postId)
     });
-  }
-
-  ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
   }
 
   getPostData(categoryId, postId) {

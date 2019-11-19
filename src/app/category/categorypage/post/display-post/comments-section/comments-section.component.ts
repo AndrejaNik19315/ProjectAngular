@@ -34,10 +34,7 @@ export class CommentsSectionComponent implements OnInit {
         }
       });
     })
-
   }
-
-
 
   timeElapsed(timestamp: Date){
     //time passed in seconds

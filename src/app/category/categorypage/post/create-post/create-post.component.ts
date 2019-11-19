@@ -61,6 +61,7 @@ export class CreatePostComponent implements OnInit {
         post.innerHTML = "<a href='"+this.route.snapshot.params.name+"/"+res.parent.id+"'><h3 class='card-title'>"+values.postTitle+"</h3></a><p class='card-text mt-2'>"+values.postDescription+"</p><hr/><div class='pl-2 pr-2 text-muted'>Posted just now <a href='user/"+this.user.uid+"'>"+this.user.displayName+"</a></div>";
         document.getElementsByClassName('posts')[0].prepend(post);
         post.className = "card-body";
+        document.getElementsByTagName("input")[3].click();
       })
       .catch(error => console.log(error));
     }

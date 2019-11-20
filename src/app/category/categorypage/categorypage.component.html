@@ -11,6 +11,9 @@
         <small>{{ categoryName }} Category</small>
       </h1>
       <app-create-post *ngIf="authService.isLoggedIn === true"></app-create-post>
+      <div *ngIf='postData.length == 0' class="posts card card--background-transparent mb-4">
+        <div>No posts as of yet.</div>
+      </div>
       <div *ngFor='let post of postData' class="posts card card--background-transparent mb-4">
         <div class="card-body">
           <a href="category/{{route.snapshot.params['name']}}/posts/{{post.pid}}"><h3 class="card-title">{{post.title}}</h3></a>

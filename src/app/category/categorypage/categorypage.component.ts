@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CreatePostComponent } from './post/create-post/create-post.component';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -10,7 +11,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './categorypage.component.html',
   styleUrls: ['./categorypage.component.css']
 })
-export class CategorypageComponent implements OnInit, OnDestroy {
+
+export class CategorypageComponent implements OnInit, OnDestroy  {
   categories: Array<any>;
   category: any;
   categoryPath: string;
@@ -24,7 +26,7 @@ export class CategorypageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(){
-    //Simulates new data fetch each time url changes
+    //Simulates new data fetch each time url changes using rjxs
     this.paramsSubscription = this.route.params.subscribe(
       () => {
         this.categoryPath = 'category/' + this.route.snapshot.params.name;
@@ -33,8 +35,12 @@ export class CategorypageComponent implements OnInit, OnDestroy {
         this.getCategoryData(this.categoryPath);
       }
     );
-
     this.getCategories();
+  }
+
+  recievePost($event){
+    console.log($event);
+    this.postData.unshift($event);
   }
 
   ngOnDestroy(): void {
@@ -47,12 +53,13 @@ export class CategorypageComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCategoryData(categoryPath){
+  getCategoryData(categoryPath) {
     this.firebaseService.getCategory(categoryPath).then(result => {
       this.category = result[0].payload.doc;
     }).then(() => {
       this.firebaseService.getCategoryPosts(this.category.id)
        .then(result => {
+          this.postData = [];
           for(let i = 0; i < result.length; i++) {
             this.postData.push(result[i].payload.doc.data());
             this.postData[i].pid = result[i].payload.doc.id;

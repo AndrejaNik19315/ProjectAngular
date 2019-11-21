@@ -1,8 +1,9 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter, Output } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-post',
@@ -15,7 +16,11 @@ export class CreatePostComponent implements OnInit {
   photoURL = null;
   errorMessage: string;
   catgeoryId: string;
+  paramsSubscription: Subscription;
   user: any = JSON.parse(localStorage.getItem('user'));
+  post: any = {};
+
+  @Output() postEvent = new EventEmitter<any>();
 
   @HostListener('change', ['$event.target.files']) emitFile( event: File ) {
     if(event != null){
@@ -27,9 +32,12 @@ export class CreatePostComponent implements OnInit {
   constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    this.firebaseService.getCategory("category/"+this.route.snapshot.params.name)
-    .then(res => this.catgeoryId = res[0].payload.doc.id)
-    .catch(error => console.log(error));
+    this.paramsSubscription = this.route.params.subscribe( () => {
+      this.firebaseService.getCategory("category/"+this.route.snapshot.params.name)
+      .then(res => this.catgeoryId = res[0].payload.doc.id)
+      .catch(error => console.log(error));
+    });
+
     this.postForm = new FormGroup({
       'postTitle' : new FormControl(null, [Validators.required, Validators.maxLength(32), this.whitespaceValidator]),
       'postImage': new FormControl(this.file, [this.allowedFileType(['png','jpeg','jpg'])]),
@@ -57,10 +65,22 @@ export class CreatePostComponent implements OnInit {
       }
       this.firebaseService.postCategoryPost(this.catgeoryId, values)
       .then(res => {
-        let post = document.createElement('div');
-        post.innerHTML = "<a href='"+this.route.snapshot.params.name+"/"+res.parent.id+"'><h3 class='card-title'>"+values.postTitle+"</h3></a><p class='card-text mt-2'>"+values.postDescription+"</p><hr/><div class='pl-2 pr-2 text-muted'>Posted just now <a href='user/"+this.user.uid+"'>"+this.user.displayName+"</a></div>";
-        document.getElementsByClassName('posts')[0].prepend(post);
-        post.className = "card-body";
+        console.log(res);
+        this.post.pid = res.id;
+        this.post.uid = values.uid;
+        this.post.displayName = this.user.displayName;
+        this.post.title = values.postTitle;
+        this.post.description = values.postDescription;
+        this.post.postPhotoURL = null;
+        this.post.createdAt = null;
+
+        this.postEvent.emit(this.post);
+
+        // let post = document.createElement('div');
+        // post.innerHTML = "<a href='"+this.route.snapshot.params.name+"/"+res.parent.id+"'><h3 class='card-title'>"+values.postTitle+"</h3></a><p class='card-text mt-2'>"+values.postDescription+"</p><hr/><div class='pl-2 pr-2 text-muted'>Posted just now <a href='user/"+this.user.uid+"'>"+this.user.displayName+"</a></div>";
+        // document.getElementsByClassName('posts')[0].prepend(post);
+        // post.className = "card-body";
+
         document.getElementsByTagName("input")[3].click();
       })
       .catch(error => console.log(error));

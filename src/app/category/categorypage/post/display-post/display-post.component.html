@@ -18,8 +18,8 @@
             </div>
           </div>
         </div>
-      <app-comment-box *ngIf="authService.isLoggedIn == true"></app-comment-box>
-      <app-comments-section></app-comments-section>
+      <app-comment-box *ngIf="authService.isLoggedIn == true" [categoryId]="categoryId" [postId]="postId" (commentEvent)="commentEvent($event)"></app-comment-box>
+      <app-comments-section [categoryId]="categoryId" [postId]="postId"></app-comments-section>
     </div>
     </div>
     </div>

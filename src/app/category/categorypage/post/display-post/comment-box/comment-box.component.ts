@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
-
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
@@ -12,10 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 export class CommentBoxComponent implements OnInit {
   commentForm: FormGroup;
   errorMessage: string;
-  categoryId: string;
-  categoryPath: string;
-  postId: string;
+  @Input() categoryId: string;
+  @Input() postId: string;
   user: any;
+  comment: any = {};
+
+  @Output() commentEvent = new EventEmitter<any>();
 
   constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, public authService: AuthService) { 
     this.user = authService.user;
@@ -25,13 +26,6 @@ export class CommentBoxComponent implements OnInit {
     this.commentForm = new FormGroup({
       'comment' : new FormControl(null, [Validators.required, Validators.maxLength(256)])
     }, this.whitespaceValidator);
-
-    this.postId = this.route.snapshot.params.postId;
-    this.categoryPath = 'category/' + this.route.snapshot.params.name;
-
-    this.firebaseService.getCategory(this.categoryPath).then(result => {
-      this.categoryId = result[0].payload.doc.id;
-    });
   }
 
   tryComment(values){
@@ -42,10 +36,17 @@ export class CommentBoxComponent implements OnInit {
     //write
     this.firebaseService.postComment(this.categoryId, this.postId, values)
     .then(() => {
-      let comment = document.createElement('div');
-      comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+(this.user.photoURL != null && this.user.photoURL != '' ? this.user.photoURL : '../../../../../assets/images/placeholders/placeholder_avatar.jpg')+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
-      document.getElementsByClassName('comments')[0].prepend(comment);
-      comment.className = 'comment';
+      this.comment.uid = values.uid;
+      this.comment.comment = values.comment;
+      this.comment.createdAt = "Just now";
+
+      this.commentEvent.emit(this.comment);
+
+      // let comment = document.createElement('div');
+      // comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+(this.user.photoURL != null && this.user.photoURL != '' ? this.user.photoURL : '../../../../../assets/images/placeholders/placeholder_avatar.jpg')+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
+      // document.getElementsByClassName('comments')[0].prepend(comment);
+      // comment.className = 'comment';
+      document.getElementsByTagName("input")[1].click();
     })
     .catch(error => console.log(error));
     }

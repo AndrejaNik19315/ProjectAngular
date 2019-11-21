@@ -13,19 +13,19 @@ import { Subscription } from 'rxjs';
 })
 export class DisplayPostComponent implements OnInit {
   post: any;
-  comments: any;
   categoryId: string;
   categoryPath: string;
   categoryName: string;
-  commentForm: FormGroup;
   errorMessage: string;
   user: any = JSON.parse(localStorage.getItem('user'));
+  postId: string;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - Post');
   }
 
   ngOnInit() {
+    this.postId = this.route.snapshot.params.postId;
     this.categoryName = this.route.snapshot.params['name'].charAt(0).toUpperCase() + this.route.snapshot.params['name'].slice(1);
     this.categoryPath = 'category/' + this.route.snapshot.params.name;
 

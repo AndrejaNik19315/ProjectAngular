@@ -32,12 +32,6 @@ export class CreatePostComponent implements OnInit {
   constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
-    // this.paramsSubscription = this.route.params.subscribe( () => {
-    //   this.firebaseService.getCategory("category/"+this.route.snapshot.params.name)
-    //   .then(res => this.categoryId = res[0].payload.doc.id)
-    //   .catch(error => console.log(error));
-    // });
-
     this.postForm = new FormGroup({
       'postTitle' : new FormControl(null, [Validators.required, Validators.maxLength(32), this.whitespaceValidator]),
       'postImage': new FormControl(this.file, [this.allowedFileType(['png','jpeg','jpg'])]),

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -9,21 +9,14 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./comments-section.component.css', '../display-post.component.css']
 })
 export class CommentsSectionComponent implements OnInit {
-  postId: string;
-  categoryId: string;
-  categoryPath: string;
+  @Input() postId: string;
+  @Input() categoryId: string;
   comments = [];
 
   constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, public authService: AuthService) { }
 
   ngOnInit() {
-    this.postId = this.route.snapshot.params.postId;
-    this.categoryPath = 'category/' + this.route.snapshot.params.name;
-
-    this.firebaseService.getCategory(this.categoryPath).then(result => {
-      this.categoryId = result[0].payload.doc.id;
-    }).then(() => {
-      this.firebaseService.getPostComments(this.categoryId, this.postId)
+    this.firebaseService.getPostComments(this.categoryId, this.postId)
       .then(result => {
         for(let i = 0; i < result.length; i++) {
           this.comments.push(result[i].payload.doc.data());
@@ -32,8 +25,11 @@ export class CommentsSectionComponent implements OnInit {
             this.comments[i].photoURL = result[0].payload.doc.data().photoURL;
           });
         }
-      });
-    })
+    });
+  }
+
+  commentEvent($event){
+    console.log($event);
   }
 
   timeElapsed(timestamp: Date){

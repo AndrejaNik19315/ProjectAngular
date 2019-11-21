@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CreatePostComponent } from './post/create-post/create-post.component';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -11,30 +11,21 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './categorypage.component.html',
   styleUrls: ['./categorypage.component.css']
 })
-export class CategorypageComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild(CreatePostComponent) child;
-
+export class CategorypageComponent implements OnInit, OnDestroy  {
   categories: Array<any>;
-  category: any;
+  categoryId: any;
   categoryPath: string;
-  posts: Array<any>;
   paramsSubscription: Subscription;
   categoryName: any;
-  postData = [];
-
-  ngAfterViewInit(): void {
-    if(this.child.post != null){
-      this.postData.unshift(this.child.post);
-    }
-  }
+  postData = Array<any>();
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
   }
 
   ngOnInit(){
-    //Simulates new data fetch each time url changes
+    //Simulates new data fetch each time url changes using rjxs
     this.paramsSubscription = this.route.params.subscribe(
       () => {
         this.categoryPath = 'category/' + this.route.snapshot.params.name;
@@ -43,8 +34,11 @@ export class CategorypageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.getCategoryData(this.categoryPath);
       }
     );
-
     this.getCategories();
+  }
+
+  recievePost($event){
+    this.postData.unshift($event);
   }
 
   ngOnDestroy(): void {
@@ -59,21 +53,19 @@ export class CategorypageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   getCategoryData(categoryPath) {
     this.firebaseService.getCategory(categoryPath).then(result => {
-      this.category = result[0].payload.doc;
+      this.categoryId = result[0].payload.doc.id;
     }).then(() => {
-      this.firebaseService.getCategoryPosts(this.category.id)
+      this.firebaseService.getCategoryPosts(this.categoryId)
        .then(result => {
-         this.postData  = [];
-         if(result.length > 0){
-            for(let i = 0; i < result.length; i++) {
-              this.postData.push(result[i].payload.doc.data());
-              this.postData[i].pid = result[i].payload.doc.id;
-              this.firebaseService.getUser(this.postData[i].uid)
-              .then(result => {
-                this.postData[i].displayName = result[0].payload.doc.data().displayName;
-                this.postData[i].userPhotoURL = result[0].payload.doc.data().photoURL;
-              });
-            }
+          this.postData = [];
+          for(let i = 0; i < result.length; i++) {
+            this.postData.push(result[i].payload.doc.data());
+            this.postData[i].pid = result[i].payload.doc.id;
+            this.firebaseService.getUser(this.postData[i].uid)
+            .then(result => {
+              this.postData[i].displayName = result[0].payload.doc.data().displayName;
+              this.postData[i].userPhotoURL = result[0].payload.doc.data().photoURL;
+            });
           }
         })
        .catch(error => console.log(error));

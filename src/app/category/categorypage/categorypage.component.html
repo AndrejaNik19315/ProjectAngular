@@ -10,9 +10,9 @@
       <h1 class="text-center">
         <small>{{ categoryName }} Category</small>
       </h1>
-      <app-create-post *ngIf="authService.isLoggedIn === true"></app-create-post>
+      <app-create-post *ngIf="authService.isLoggedIn === true" (postEvent)="recievePost($event)" [categoryId]="categoryId"></app-create-post>
       <div *ngIf='postData.length == 0' class="posts card card--background-transparent mb-4">
-        <div>No posts as of yet.</div>
+        <div><h2 class="text-center">No posts as of yet.</h2></div>
       </div>
       <div *ngFor='let post of postData' class="posts card card--background-transparent mb-4">
         <div class="card-body">
@@ -20,8 +20,12 @@
           <img *ngIf="post.postPhotoURL !== null && post.postPhotoURL !== ''" class="card-img-top card-img-compact" src="{{post.postPhotoURL}}" alt="postImage.jpg">
           <p class="card-text mt-2">{{post.description}}</p>
           <hr/>
-          <div class="pl-2 pr-2 text-muted">
+          <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt != null">
             Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by
+            <a href="user/{{post.uid}}">{{post.displayName}}</a>
+          </div>
+          <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt == null">
+            Posted Just now by
             <a href="user/{{post.uid}}">{{post.displayName}}</a>
           </div>
         </div>

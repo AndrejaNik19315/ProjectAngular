@@ -40,13 +40,10 @@ export class CommentBoxComponent implements OnInit {
       this.comment.displayName = this.user.displayName;
       this.comment.comment = values.comment;
       this.comment.createdAt = null;
+      this.comment.photoURL = this.user.photoURL ? this.user.photoURL : null;
 
       this.commentEvent.emit(this.comment);
 
-      // let comment = document.createElement('div');
-      // comment.innerHTML = "<div class='user-section'><a href='user/"+this.user.uid+"'><img style='width: 40px; height: 40px; padding: 2px; margin: 5px; border: 1px solid #d62222;' src='"+(this.user.photoURL != null && this.user.photoURL != '' ? this.user.photoURL : '../../../../../assets/images/placeholders/placeholder_avatar.jpg')+"' alt='userAvatar.jpg'/>"+this.user.displayName+"</a><span class='text-muted'> Just now</span></div><div class='p-3' style='overflow: hidden; border-bottom: 1px solid rgba(0, 0, 0, 0.125);'>"+values.comment+"</div>";
-      // document.getElementsByClassName('comments')[0].prepend(comment);
-      // comment.className = 'comment';
       document.getElementsByTagName("input")[1].click();
     })
     .catch(error => console.log(error));

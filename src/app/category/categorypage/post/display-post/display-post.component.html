@@ -14,7 +14,7 @@
             <img *ngIf="post.postPhotoURL != null && post.postPhotoURL != ''" class="card-img-top card-img-compact" src="{{post.postPhotoURL}}" alt="postImage.jpg">
             <p class="card-text mt-2">{{post.description}}</p>
             <div class="pl-2 pr-2 text-muted post-user">
-              Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by <span class="user-section"><a href="user/{{post.uid}}"><img class="avatar" src="{{post.userPhotoURL}}" alt="userAvatar.jpg"/>{{post.displayName}}</a></span>
+              Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by <span class="user-section"><a href="user/{{post.uid}}"><img *ngIf="post.userPhotoURL != null && post.userPhotoURL != ''" class="avatar" src="{{post.userPhotoURL}}" alt="userAvatar.jpg"/><img *ngIf="post.userPhotoURL == null || post.userPhotoURL == ''" class="avatar" src="../../../../../assets/images/placeholders/placeholder_avatar.jpg" alt="userAvatar.jpg"/>{{post.displayName}}</a></span>
             </div>
           </div>
         </div>

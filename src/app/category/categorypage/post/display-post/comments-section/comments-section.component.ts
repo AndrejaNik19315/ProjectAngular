@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -17,7 +16,6 @@ export class CommentsSectionComponent implements OnInit {
   constructor(private firebaseService: FirebaseService, public authService: AuthService) { }
 
   ngOnChanges(changes: SimpleChanges){
-    console.log(changes);
     if(changes.comment != null){
       this.comments.unshift(changes.comment.currentValue);
     }

@@ -29,7 +29,7 @@ export class CreatePostComponent implements OnInit {
     }
   }
 
-  constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, private spinner: NgxSpinnerService) { }
+  constructor(private firebaseService: FirebaseService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.postForm = new FormGroup({
@@ -37,10 +37,6 @@ export class CreatePostComponent implements OnInit {
       'postImage': new FormControl(this.file, [this.allowedFileType(['png','jpeg','jpg'])]),
       'postDescription': new FormControl(null, [Validators.required, Validators.maxLength(512), this.whitespaceValidator])
     });
-  }
-
-  ngOnDestroy(): void {
-    this.paramsSubscription.unsubscribe();
   }
 
   tryPost(values){

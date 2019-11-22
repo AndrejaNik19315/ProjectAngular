@@ -15,9 +15,7 @@ export class HomepageComponent implements OnInit {
     this.titleService.setTitle('Divinity - Homepage');
   }
 
-  ngOnInit() {
-    //console.log(JSON.parse(localStorage.getItem('user')));
-  }
+  ngOnInit() {}
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll(e) {

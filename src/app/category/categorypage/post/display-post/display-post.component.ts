@@ -19,6 +19,7 @@ export class DisplayPostComponent implements OnInit {
   errorMessage: string;
   user: any = JSON.parse(localStorage.getItem('user'));
   postId: string;
+  comment: {};
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - Post');
@@ -46,5 +47,9 @@ export class DisplayPostComponent implements OnInit {
       })
       .catch(error => console.log(error));
     }).catch(error => console.log(error));
+  }
+
+  commentEvent($event) {
+    this.comment = $event;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -11,9 +11,17 @@ import { AuthService } from 'src/app/core/services/auth.service';
 export class CommentsSectionComponent implements OnInit {
   @Input() postId: string;
   @Input() categoryId: string;
+  @Input() comment: any;
   comments = [];
 
-  constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, public authService: AuthService) { }
+  constructor(private firebaseService: FirebaseService, public authService: AuthService) { }
+
+  ngOnChanges(changes: SimpleChanges){
+    console.log(changes);
+    if(changes.comment != null){
+      this.comments.unshift(changes.comment.currentValue);
+    }
+  }
 
   ngOnInit() {
     this.firebaseService.getPostComments(this.categoryId, this.postId)
@@ -26,10 +34,6 @@ export class CommentsSectionComponent implements OnInit {
           });
         }
     });
-  }
-
-  commentEvent($event){
-    console.log($event);
   }
 
   timeElapsed(timestamp: Date){

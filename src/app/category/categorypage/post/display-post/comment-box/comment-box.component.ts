@@ -18,7 +18,7 @@ export class CommentBoxComponent implements OnInit {
 
   @Output() commentEvent = new EventEmitter<any>();
 
-  constructor(private route: ActivatedRoute, private firebaseService: FirebaseService, public authService: AuthService) { 
+  constructor(private firebaseService: FirebaseService, public authService: AuthService) { 
     this.user = authService.user;
   }
 
@@ -37,8 +37,9 @@ export class CommentBoxComponent implements OnInit {
     this.firebaseService.postComment(this.categoryId, this.postId, values)
     .then(() => {
       this.comment.uid = values.uid;
+      this.comment.displayName = this.user.displayName;
       this.comment.comment = values.comment;
-      this.comment.createdAt = "Just now";
+      this.comment.createdAt = null;
 
       this.commentEvent.emit(this.comment);
 

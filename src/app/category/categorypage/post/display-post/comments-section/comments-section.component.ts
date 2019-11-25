@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comments-section',
@@ -12,26 +13,51 @@ export class CommentsSectionComponent implements OnInit {
   @Input() categoryId: string;
   @Input() comment: any;
   comments = [];
+  alertTitle = "Delete Comment";
+  alertDescription = "This action cannot be reverted, are you sure you wish to proceed?";
 
-  constructor(private firebaseService: FirebaseService, public authService: AuthService) { }
+  constructor(private firebaseService: FirebaseService, public authService: AuthService) {}
 
-  ngOnChanges(changes: SimpleChanges){
-    if(changes.comment != null){
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes.comment != null ) {
       this.comments.unshift(changes.comment.currentValue);
     }
   }
 
   ngOnInit() {
+    this.getPostComments();
+  }
+
+  confirmPopupAlert() {
+    
+  }
+
+  tryRemoveComment(commentId) {
+    let commentIndex = this.comments.findIndex(comment => comment.commentId === commentId);
+    let elements = document.getElementsByClassName('comments')[0];
+    let element = elements.getElementsByClassName('comment')[commentIndex];
+    this.firebaseService.deleteComment(this.categoryId, this.postId, commentId)
+    .then(() => {
+      if(commentIndex != null){
+        elements.removeChild(element);
+        this.comments.splice(commentIndex, 1);
+      }
+    })
+    .catch(error => {console.log(error)});
+  }
+
+  getPostComments(){
     this.firebaseService.getPostComments(this.categoryId, this.postId)
-      .then(result => {
-        for(let i = 0; i < result.length; i++) {
-          this.comments.push(result[i].payload.doc.data());
-          this.firebaseService.getUser(this.comments[i].uid).then(result => {
-            this.comments[i].displayName = result[0].payload.doc.data().displayName;
-            this.comments[i].photoURL = result[0].payload.doc.data().photoURL;
-          });
-        }
-    });
+    .then(result => {
+      for(let i = 0; i < result.length; i++) {
+        this.comment = {uid: result[i].payload.doc.data().uid, comment: result[i].payload.doc.data().comment, createdAt:  result[i].payload.doc.data().createdAt, commentId: result[i].payload.doc.id};
+        this.comments.push(this.comment);
+        this.firebaseService.getUser(this.comments[i].uid).then(result => {
+          this.comments[i].displayName = result[0].payload.doc.data().displayName;
+          this.comments[i].photoURL = result[0].payload.doc.data().photoURL;
+        });
+      }
+  });
   }
 
   timeElapsed(timestamp: Date){

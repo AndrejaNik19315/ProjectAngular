@@ -1,5 +1,5 @@
 import { AuthService } from './../../../../core/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
@@ -17,7 +17,7 @@ export class DisplayPostComponent implements OnInit {
   errorMessage: string;
   user: any = JSON.parse(localStorage.getItem('user'));
   postId: string;
-  comment: {};
+  comment: any;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - Post');
@@ -48,6 +48,7 @@ export class DisplayPostComponent implements OnInit {
   }
 
   commentEvent($event) {
+    console.log($event);
     this.comment = $event;
   }
 }

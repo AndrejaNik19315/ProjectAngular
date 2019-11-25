@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
@@ -11,14 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 export class CommentBoxComponent implements OnInit {
   commentForm: FormGroup;
   errorMessage: string;
+  user: any;
   @Input() categoryId: string;
   @Input() postId: string;
-  user: any;
   comment: any = {};
 
   @Output() commentEvent = new EventEmitter<any>();
 
-  constructor(private firebaseService: FirebaseService, public authService: AuthService) { 
+  constructor(private firebaseService: FirebaseService, public authService: AuthService) {
     this.user = authService.user;
   }
 
@@ -35,8 +35,9 @@ export class CommentBoxComponent implements OnInit {
     values.uid = this.user.uid;
     //write
     this.firebaseService.postComment(this.categoryId, this.postId, values)
-    .then(() => {
+    .then(res => {
       this.comment.uid = values.uid;
+      this.comment.commentId = res.id;
       this.comment.displayName = this.user.displayName;
       this.comment.comment = values.comment;
       this.comment.createdAt = null;

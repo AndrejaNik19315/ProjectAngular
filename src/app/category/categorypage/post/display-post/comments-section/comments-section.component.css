@@ -1,0 +1,18 @@
+.user-section div{
+    float: right;
+    display: inline-block;
+    height: 50px;
+}
+
+.user-section button{
+    height: 50px;
+    color: #d62222;
+    border: unset;
+    background-color: transparent;
+    outline: unset;
+}
+
+.display-modal{
+    opacity: 1;
+    display: block;
+}

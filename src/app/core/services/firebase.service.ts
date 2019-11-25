@@ -155,6 +155,15 @@ postComment(categoryId, postId, values){
 }
 
 //DELETE
+deleteComment(categoryId, postId, commentId) {
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments').doc(commentId).delete()
+    .then(res => {
+      resolve(res)
+    })
+    .catch(error => reject(error));
+  });
+}
 
 //STORAGE
 

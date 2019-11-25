@@ -34,6 +34,7 @@ import { DisplayPostComponent } from './category/categorypage/post/display-post/
 import { CreatePostComponent } from './category/categorypage/post/create-post/create-post.component';
 import { CommentsSectionComponent } from './category/categorypage/post/display-post/comments-section/comments-section.component';
 import { CommentBoxComponent } from './category/categorypage/post/display-post/comment-box/comment-box.component';
+import { PopupModalAlertComponent } from './shared/components/popup-modal-alert/popup-modal-alert.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { CommentBoxComponent } from './category/categorypage/post/display-post/c
     DisplayPostComponent,
     CreatePostComponent,
     CommentsSectionComponent,
-    CommentBoxComponent
+    CommentBoxComponent,
+    PopupModalAlertComponent
   ],
   imports: [
     BrowserModule,

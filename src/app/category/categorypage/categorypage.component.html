@@ -12,6 +12,7 @@
       </h1>
       <app-create-post *ngIf="authService.isLoggedIn === true" (postEvent)="recievePost($event)" [categoryId]="categoryId"></app-create-post>
       <div *ngIf='postData.length == 0' class="posts card card--background-transparent mb-4">
+        <hr/>
         <div><h2 class="text-center">No posts as of yet.</h2></div>
       </div>
       <div *ngFor='let post of postData' class="posts card card--background-transparent mb-4">

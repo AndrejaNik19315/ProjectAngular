@@ -2,7 +2,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, HostListener, EventEmitter, Output, Input } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
-import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -39,7 +38,7 @@ export class CreatePostComponent implements OnInit {
     });
   }
 
-  tryPost(values){
+  async tryPost(values){
     values.uid = this.user.uid;
     
     if(this.postForm.valid){
@@ -48,7 +47,7 @@ export class CreatePostComponent implements OnInit {
       this.spinner.show();
       if(this.file !== null){
         let storagePath = "postImages";
-        this.firebaseService.uploadImage(storagePath, this.file)
+        await this.firebaseService.uploadImage(storagePath, this.file)
         .then(res => {
           values.postImage = res.split('&')[0];
         })
@@ -64,10 +63,12 @@ export class CreatePostComponent implements OnInit {
         this.post.displayName = this.user.displayName;
         this.post.title = values.postTitle;
         this.post.description = values.postDescription;
-        this.post.postPhotoURL = null;
+        this.post.postPhotoURL = values.postImage != null ? values.postImage : null;
         this.post.createdAt = null;
 
         this.postEvent.emit(this.post);
+
+        this.post = {};
 
         document.getElementsByTagName("input")[3].click();
       })

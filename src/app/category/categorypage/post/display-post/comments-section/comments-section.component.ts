@@ -19,12 +19,6 @@ export class CommentsSectionComponent implements OnInit {
 
   constructor(private firebaseService: FirebaseService, public authService: AuthService) {}
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if(changes.comment != null ) {
-  //     this.comments.unshift(changes.comment.currentValue);
-  //   }
-  // }
-
   ngOnInit() {
     this.getPostComments();
   }
@@ -33,13 +27,13 @@ export class CommentsSectionComponent implements OnInit {
     
   // }
 
-  tryRemoveComment(commentId) {
+  tryRemoveComment(uid, commentId) {
     let commentIndex = this.comments.findIndex(comment => comment.commentId === commentId);
     let elements = document.getElementsByClassName('comments')[0];
     let element = elements.getElementsByClassName('comment')[commentIndex];
     this.firebaseService.deleteComment(this.categoryId, this.postId, commentId)
     .then(() => {
-      if(commentIndex != null){
+      if(uid === this.authService.user.uid && commentIndex != null){
         elements.removeChild(element);
         this.comments.splice(commentIndex, 1);
       }

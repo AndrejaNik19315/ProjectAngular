@@ -45,6 +45,8 @@ export class CommentBoxComponent implements OnInit {
 
       this.commentEvent.emit(this.comment);
 
+      this.comment = {};
+
       document.getElementsByTagName("input")[1].click();
     })
     .catch(error => console.log(error));

@@ -19,7 +19,7 @@
           </div>
         </div>
       <app-comment-box *ngIf="authService.isLoggedIn == true" [categoryId]="categoryId" [postId]="postId" (commentEvent)="commentEvent($event)"></app-comment-box>
-      <app-comments-section [categoryId]="categoryId" [postId]="postId" [comment]="comment"></app-comments-section>
+      <app-comments-section [categoryId]="categoryId" [postId]="postId" (sendCommentsEvent)="recieveCommentsEvent($event)"></app-comments-section>
     </div>
     </div>
     </div>

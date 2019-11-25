@@ -17,6 +17,7 @@ export class DisplayPostComponent implements OnInit {
   errorMessage: string;
   user: any = JSON.parse(localStorage.getItem('user'));
   postId: string;
+  comments: any[] = [];
   comment: any;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
@@ -47,8 +48,16 @@ export class DisplayPostComponent implements OnInit {
     }).catch(error => console.log(error));
   }
 
+  recieveCommentsEvent($event){
+    this.comments = $event;
+  }
+
   commentEvent($event) {
-    console.log($event);
     this.comment = $event;
+
+    if(this.comment != null) {
+      this.comments.unshift(this.comment);
+      console.log(this.comments);
+    }
   }
 }

@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comments-section',
@@ -11,26 +10,28 @@ import { Observable } from 'rxjs';
 export class CommentsSectionComponent implements OnInit {
   @Input() postId: string;
   @Input() categoryId: string;
-  @Input() comment: any;
-  comments = [];
+  comment: any;
+  @Output() comments = [];
   alertTitle = "Delete Comment";
   alertDescription = "This action cannot be reverted, are you sure you wish to proceed?";
 
+  @Output() sendCommentsEvent = new EventEmitter<any>();
+
   constructor(private firebaseService: FirebaseService, public authService: AuthService) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes.comment != null ) {
-      this.comments.unshift(changes.comment.currentValue);
-    }
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if(changes.comment != null ) {
+  //     this.comments.unshift(changes.comment.currentValue);
+  //   }
+  // }
 
   ngOnInit() {
     this.getPostComments();
   }
 
-  confirmPopupAlert() {
+  // confirmPopupAlert() {
     
-  }
+  // }
 
   tryRemoveComment(commentId) {
     let commentIndex = this.comments.findIndex(comment => comment.commentId === commentId);
@@ -46,7 +47,7 @@ export class CommentsSectionComponent implements OnInit {
     .catch(error => {console.log(error)});
   }
 
-  getPostComments(){
+  getPostComments() {
     this.firebaseService.getPostComments(this.categoryId, this.postId)
     .then(result => {
       for(let i = 0; i < result.length; i++) {
@@ -57,7 +58,7 @@ export class CommentsSectionComponent implements OnInit {
           this.comments[i].photoURL = result[0].payload.doc.data().photoURL;
         });
       }
-  });
+  }).then(() =>  this.sendCommentsEvent.emit(this.comments)); //sending comments to parent component
   }
 
   timeElapsed(timestamp: Date){

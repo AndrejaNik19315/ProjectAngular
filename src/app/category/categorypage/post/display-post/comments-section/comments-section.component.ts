@@ -31,14 +31,14 @@ export class CommentsSectionComponent implements OnInit {
     let commentIndex = this.comments.findIndex(comment => comment.commentId === commentId);
     let elements = document.getElementsByClassName('comments')[0];
     let element = elements.getElementsByClassName('comment')[commentIndex];
+    if(uid === this.authService.user.uid && commentIndex != null){
     this.firebaseService.deleteComment(this.categoryId, this.postId, commentId)
     .then(() => {
-      if(uid === this.authService.user.uid && commentIndex != null){
         elements.removeChild(element);
         this.comments.splice(commentIndex, 1);
-      }
     })
     .catch(error => {console.log(error)});
+    }
   }
 
   getPostComments() {

@@ -129,6 +129,15 @@ postCategoryPost(categoryId, values){
   });
 }
 
+//DELETE
+deleteCategoryPost(categoryId, postId){
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).delete()
+    .then(res => resolve(res))
+    .catch(error => reject(error));
+  });
+}
+
 //Comments
 //GET
 getPostComments(categoryId, postId){

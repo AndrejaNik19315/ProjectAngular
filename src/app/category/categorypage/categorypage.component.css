@@ -106,3 +106,28 @@ a{
 .card-img-compact{
     max-height: 400px;
 }
+
+.post-options{
+    display: inline-block;
+    float: right;
+}
+
+.post-options button{
+    height: 50px;
+    color: #d62222;
+    border: unset;
+    background-color: transparent;
+    outline: unset;
+}
+
+@media only screen and (max-width: 465px) {
+    .post-options{
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        display: block;
+        float: unset;
+        text-align: center;
+        margin: 5px 0px;
+        padding: 5px 0px;
+    }
+}
+

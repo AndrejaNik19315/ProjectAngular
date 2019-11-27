@@ -70,4 +70,20 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
        .catch(error => console.log(error));
     });
   }
+
+  tryRemovePost(uid, pid){
+    //If there is an image logic required
+    let postIndex = this.postData.findIndex(post => post.pid === pid);
+    let elements = document.getElementsByClassName('posts')[0];
+    let element = elements.getElementsByClassName('post')[postIndex];
+    if(uid === this.authService.user.uid && postIndex != null) {
+      this.firebaseService.deleteCategoryPost(this.categoryId, pid)
+      .then(() => {
+        elements.removeChild(element);
+        this.postData.splice(postIndex, 1);
+      })
+      .catch(error => console.log(error));
+    }
+  }
+  
 }

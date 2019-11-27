@@ -15,19 +15,19 @@
         <hr/>
         <div><h2 class="text-center">No posts as of yet.</h2></div>
       </div>
-      <div *ngFor='let post of postData' class="posts card card--background-transparent mb-4">
-        <div class="card-body">
+      <div class="posts card card--background-transparent mb-4">
+        <div *ngFor='let post of postData' class="post card-body">
           <a href="category/{{route.snapshot.params['name']}}/posts/{{post.pid}}"><h3 class="card-title">{{post.title}}</h3></a>
           <img *ngIf="post.postPhotoURL !== null && post.postPhotoURL !== ''" class="card-img-top card-img-compact" src="{{post.postPhotoURL}}" alt="postImage.jpg">
           <p class="card-text mt-2">{{post.description}}</p>
           <hr/>
           <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt != null">
             Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by
-            <a href="user/{{post.uid}}">{{post.displayName}}</a>
+            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post.uid, post.pid)">Delete</button></div>
           </div>
           <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt == null">
             Posted Just now by
-            <a href="user/{{post.uid}}">{{post.displayName}}</a>
+            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post.uid, post.pid)">Delete</button></div>
           </div>
         </div>
       </div>

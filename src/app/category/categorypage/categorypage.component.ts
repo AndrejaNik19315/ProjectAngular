@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirebaseService } from './../../core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-categorypage',
@@ -19,7 +20,7 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
   categoryName: any;
   postData = Array<any>();
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService, private spinner: NgxSpinnerService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
   }
 
@@ -71,19 +72,33 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
     });
   }
 
-  tryRemovePost(uid, pid){
-    //If there is an image logic required
-    let postIndex = this.postData.findIndex(post => post.pid === pid);
+  async tryRemovePost(post){
+    this.spinner.show();
+    let flag = true;
+
+    if(post.postPhotoURL !== null) {
+      await this.firebaseService.removeImage(post.postPhotoURL)
+      .catch(error => {
+        flag = false;
+        console.log(error);
+      });
+    }
+
+    if(flag === true){
+    let postIndex = this.postData.findIndex(postIndx => postIndx.pid === post.pid);
     let elements = document.getElementsByClassName('posts')[0];
     let element = elements.getElementsByClassName('post')[postIndex];
-    if(uid === this.authService.user.uid && postIndex != null) {
-      this.firebaseService.deleteCategoryPost(this.categoryId, pid)
+    if(post.uid === this.authService.user.uid && postIndex != null) {
+      this.firebaseService.deleteCategoryPost(this.categoryId, post.pid)
       .then(() => {
         elements.removeChild(element);
         this.postData.splice(postIndex, 1);
       })
       .catch(error => console.log(error));
+      }
     }
+
+    this.spinner.hide();
   }
   
 }

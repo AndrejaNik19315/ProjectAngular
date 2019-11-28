@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 

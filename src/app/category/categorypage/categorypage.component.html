@@ -23,13 +23,20 @@
           <hr/>
           <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt != null">
             Posted on {{post.createdAt.toDate() | date: 'dd-MMM-yyyy'}} by
-            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post.uid, post.pid)">Delete</button></div>
+            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post)">Delete</button></div>
           </div>
           <div class="pl-2 pr-2 text-muted" *ngIf="post.createdAt == null">
             Posted Just now by
-            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post.uid, post.pid)">Delete</button></div>
+            <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="tryRemovePost(post)">Delete</button></div>
           </div>
         </div>
+        <ngx-spinner 
+        bdColor = "rgba(0,0,0,0.3)"
+        size = "medium"
+        color = "#333"
+        type = "line-scale"
+        [fullScreen] = "true">
+        <p style="font-size: 20px;">Removing...</p></ngx-spinner>
       </div>
     </div>
     <!-- Sidebar Widgets Column -->

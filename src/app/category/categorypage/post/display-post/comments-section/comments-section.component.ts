@@ -1,38 +1,50 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { PopupModal } from 'src/app/shared/interfaces/popup-modal';
 
 @Component({
   selector: 'app-comments-section',
   templateUrl: './comments-section.component.html',
   styleUrls: ['./comments-section.component.css', '../display-post.component.css']
 })
-export class CommentsSectionComponent implements OnInit {
+export class CommentsSectionComponent implements OnInit, PopupModal {
+  modalRef: BsModalRef;
+  template: TemplateRef<any>;
+
+  popupTitle: string = "Delete Comment";
+  popupDescription: string = "This action cannot be reverted, are you sure you wish to proceed?";
+
+  commentUid: string;
+  commentId: string;
+
   @Input() postId: string;
   @Input() categoryId: string;
   comment: any;
   @Output() comments = [];
-  alertTitle = "Delete Comment";
-  alertDescription = "This action cannot be reverted, are you sure you wish to proceed?";
 
   @Output() sendCommentsEvent = new EventEmitter<any>();
 
-  constructor(private firebaseService: FirebaseService, public authService: AuthService) {}
+  constructor(private firebaseService: FirebaseService, public authService: AuthService, private modalService: BsModalService) {}
 
   ngOnInit() {
     this.getPostComments();
   }
 
-  // confirmPopupAlert() {
-    
-  // }
+  openModal(template: TemplateRef<any>, commentUid, commentId) {
+    this.modalRef = this.modalService.show(template);
+    this.commentUid = commentUid;
+    this.commentId = commentId;
+  }
 
-  tryRemoveComment(uid, commentId) {
-    let commentIndex = this.comments.findIndex(comment => comment.commentId === commentId);
+  tryRemoveComment() {
+    this.modalRef.hide();
+    let commentIndex = this.comments.findIndex(comment => comment.commentId === this.commentId);
     let elements = document.getElementsByClassName('comments')[0];
     let element = elements.getElementsByClassName('comment')[commentIndex];
-    if(uid === this.authService.user.uid && commentIndex != null){
-    this.firebaseService.deleteComment(this.categoryId, this.postId, commentId)
+    if(this.commentUid === this.authService.user.uid && commentIndex != null){
+    this.firebaseService.deleteComment(this.categoryId, this.postId, this.commentId)
     .then(() => {
         elements.removeChild(element);
         this.comments.splice(commentIndex, 1);

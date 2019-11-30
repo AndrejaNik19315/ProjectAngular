@@ -34,7 +34,8 @@ import { DisplayPostComponent } from './category/categorypage/post/display-post/
 import { CreatePostComponent } from './category/categorypage/post/create-post/create-post.component';
 import { CommentsSectionComponent } from './category/categorypage/post/display-post/comments-section/comments-section.component';
 import { CommentBoxComponent } from './category/categorypage/post/display-post/comment-box/comment-box.component';
-import { PopupModalAlertComponent } from './shared/components/popup-modal-alert/popup-modal-alert.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -59,21 +60,23 @@ import { PopupModalAlertComponent } from './shared/components/popup-modal-alert/
     DisplayPostComponent,
     CreatePostComponent,
     CommentsSectionComponent,
-    CommentBoxComponent,
-    PopupModalAlertComponent
+    CommentBoxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFontAwesomeModule,
     ScrollToModule.forRoot(),
+    ModalModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     ReactiveFormsModule,
     AngularFirestoreModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    BrowserAnimationsModule,
+    ModalModule.forRoot()
   ],
   providers: [
     Title,

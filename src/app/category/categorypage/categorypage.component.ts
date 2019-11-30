@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PopupModal } from './../../shared/interfaces/popup-modal';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FirebaseService } from './../../core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-categorypage',
@@ -12,7 +14,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./categorypage.component.css']
 })
 
-export class CategorypageComponent implements OnInit, OnDestroy  {
+export class CategorypageComponent implements OnInit, OnDestroy, PopupModal {
+  modalRef: BsModalRef;
+  template: TemplateRef<any>;
+
+  popupTitle: string = "Delete Post";
+  popupDescription: string = "This action cannot be reverted, are you sure you wish to proceed?";
+
+  post: any;
+
   categories: Array<any>;
   categoryId: any;
   categoryPath: string;
@@ -20,7 +30,7 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
   categoryName: any;
   postData = Array<any>();
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService, private spinner: NgxSpinnerService) {
+  constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
   }
 
@@ -72,12 +82,19 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
     });
   }
 
-  async tryRemovePost(post){
+  openModal(template: TemplateRef<any>, post) {
+    this.modalRef = this.modalService.show(template);
+    this.post = post;
+  }
+
+  async tryRemovePost() {
+    this.modalRef.hide();
+    console.log(this.post);
     this.spinner.show();
     let flag = true;
 
-    if(post.postPhotoURL !== null) {
-      await this.firebaseService.removeImage(post.postPhotoURL)
+    if(this.post.postPhotoURL !== null) {
+      await this.firebaseService.removeImage(this.post.postPhotoURL)
       .catch(error => {
         flag = false;
         console.log(error);
@@ -85,11 +102,11 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
     }
 
     if(flag === true){
-    let postIndex = this.postData.findIndex(postIndx => postIndx.pid === post.pid);
+    let postIndex = this.postData.findIndex(postIndx => postIndx.pid === this.post.pid);
     let elements = document.getElementsByClassName('posts')[0];
     let element = elements.getElementsByClassName('post')[postIndex];
-    if(post.uid === this.authService.user.uid && postIndex != null) {
-      this.firebaseService.deleteCategoryPost(this.categoryId, post.pid)
+    if(this.post.uid === this.authService.user.uid && postIndex != null) {
+      this.firebaseService.deleteCategoryPost(this.categoryId, this.post.pid)
       .then(() => {
         elements.removeChild(element);
         this.postData.splice(postIndex, 1);
@@ -100,5 +117,4 @@ export class CategorypageComponent implements OnInit, OnDestroy  {
 
     this.spinner.hide();
   }
-  
 }

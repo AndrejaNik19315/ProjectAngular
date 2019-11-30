@@ -1,6 +1,11 @@
 <div class="comments">
   <div *ngFor="let comment of comments" class="comment">
-    <div class="user-section"><a href="user/{{comment.uid}}"><img *ngIf="comment.photoURL != null && comment.photoURL != ''" class="avatar" src="{{comment.photoURL}}" alt="userAvatar.jpg"/><img *ngIf="comment.photoURL == null || comment.photoURL == ''" class="avatar" src="../../../../../assets/images/placeholders/placeholder_avatar.jpg" alt="userAvatar.jpg"/>{{comment.displayName}}</a><span class="text-muted" *ngIf="comment.createdAt != null"> {{timeElapsed(comment.createdAt.toDate())}}</span><span class="text-muted" *ngIf="comment.createdAt == null"> Just now</span><div *ngIf="authService.isLoggedIn === true && authService.user.uid === comment.uid"><button (click)="tryRemoveComment(comment.uid, comment.commentId)">Delete</button></div></div>
+    <div class="user-section"><a href="user/{{comment.uid}}">
+      <img *ngIf="comment.photoURL != null && comment.photoURL != ''" class="avatar" src="{{comment.photoURL}}" alt="userAvatar.jpg"/>
+      <img *ngIf="comment.photoURL == null || comment.photoURL == ''" class="avatar" src="../../../../../assets/images/placeholders/placeholder_avatar.jpg" alt="userAvatar.jpg"/>{{comment.displayName}}</a>
+      <span class="text-muted" *ngIf="comment.createdAt != null"> {{timeElapsed(comment.createdAt.toDate())}}</span>
+      <span class="text-muted" *ngIf="comment.createdAt == null"> Just now</span><div *ngIf="authService.isLoggedIn === true && authService.user.uid === comment.uid"><button (click)="openModal(template, comment.uid, comment.commentId)">Delete</button></div>
+    </div>
     <div class="user-comment p-3">{{comment.comment}}</div>
   </div>
   <div *ngIf="comments.length == 0">
@@ -8,4 +13,17 @@
     <div class="text-center"><h3>No comments as of yet.</h3></div>
   </div>
 </div>
-<app-popup-modal-alert [alertTitle]="alertTitle" [alertDescription]="alertDescription"></app-popup-modal-alert>
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{popupTitle}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{popupDescription}}
+    <hr/>
+    <button type="button" class="btn btn-default" (click)="tryRemoveComment()">Confirm</button>
+    <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Cancel</button>
+  </div>
+</ng-template>

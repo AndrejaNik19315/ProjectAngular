@@ -6,7 +6,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 @Component({
   selector: 'app-comment-box',
   templateUrl: './comment-box.component.html',
-  styleUrls: ['./comment-box.component.css', '../display-post.component.css']
+  styleUrls: ['./comment-box.component.css']
 })
 export class CommentBoxComponent implements OnInit {
   commentForm: FormGroup;
@@ -56,7 +56,7 @@ export class CommentBoxComponent implements OnInit {
     }
   }
 
-  whitespaceValidator(control: FormControl){
+  whitespaceValidator(control: FormControl) {
     let comment = control.get('comment');
     if(comment.value != null){
       if(comment.value.trim() !== ""){

@@ -19,6 +19,7 @@ export class DisplayPostComponent implements OnInit {
   postId: string;
   comments: any[] = [];
   comment: any;
+  editCommentFlag: boolean = false;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService) {
     this.titleService.setTitle('Divinity - Post');
@@ -48,8 +49,13 @@ export class DisplayPostComponent implements OnInit {
     }).catch(error => console.log(error));
   }
 
-  recieveCommentsEvent($event){
+  recieveCommentsEvent($event) {
     this.comments = $event;
+  }
+
+  recieveEditCommentFlag($event) {
+    this.editCommentFlag = $event.flag;
+    this.comment = $event;
   }
 
   commentEvent($event) {
@@ -57,7 +63,6 @@ export class DisplayPostComponent implements OnInit {
 
     if(this.comment != null) {
       this.comments.unshift(this.comment);
-      console.log(this.comments);
     }
   }
 }

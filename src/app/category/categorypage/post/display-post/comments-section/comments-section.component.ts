@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, TemplateRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
@@ -7,7 +7,8 @@ import { PopupModal } from 'src/app/shared/interfaces/popup-modal';
 @Component({
   selector: 'app-comments-section',
   templateUrl: './comments-section.component.html',
-  styleUrls: ['./comments-section.component.css', '../display-post.component.css']
+  styleUrls: ['./comments-section.component.css', '../display-post.component.css', '../../../../../shared/components/modal.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CommentsSectionComponent implements OnInit, PopupModal {
   modalRef: BsModalRef;
@@ -18,18 +19,24 @@ export class CommentsSectionComponent implements OnInit, PopupModal {
 
   commentUid: string;
   commentId: string;
-
+  
   @Input() postId: string;
   @Input() categoryId: string;
   comment: any;
   @Output() comments = [];
 
+  @Output() editCommentEvent = new EventEmitter<any>();
   @Output() sendCommentsEvent = new EventEmitter<any>();
 
   constructor(private firebaseService: FirebaseService, public authService: AuthService, private modalService: BsModalService) {}
 
   ngOnInit() {
     this.getPostComments();
+  }
+
+  editComment(comment) {
+    comment.flag = true;
+    this.editCommentEvent.emit(comment);
   }
 
   openModal(template: TemplateRef<any>, commentUid, commentId) {

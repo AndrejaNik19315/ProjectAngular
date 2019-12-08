@@ -115,7 +115,7 @@ getCategoryPost(categoryId, postId){
 }
 
 //POST
-postCategoryPost(categoryId, values){
+postCategoryPost(categoryId, values) {
   return new Promise<any>((resovle, reject) => {
     this.db.collection('categories').doc(categoryId).collection('posts').add({
       createdAt: new Date(),
@@ -125,6 +125,15 @@ postCategoryPost(categoryId, values){
       uid: values.uid
     })
     .then(res => resovle(res))
+    .catch(error => reject(error));
+  });
+}
+
+//UPDATE
+updateCategoryPost(categoryId, values){
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryId).update(values)
+    .then(res => resolve(res))
     .catch(error => reject(error));
   });
 }
@@ -158,6 +167,15 @@ postComment(categoryId, postId, values){
       createdAt: new Date(),
       uid: values.uid
     })
+    .then(res => resolve(res))
+    .catch(error => reject(error));
+  });
+}
+
+//UPDATE
+updatePostComment(categoryId, postId, commentId, value) {
+  return new Promise<any>((resolve, reject) => {
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).collection('comments').doc(commentId).update(value)
     .then(res => resolve(res))
     .catch(error => reject(error));
   });

@@ -18,8 +18,9 @@
             </div>
           </div>
         </div>
-      <app-comment-box *ngIf="authService.isLoggedIn == true" [categoryId]="categoryId" [postId]="postId" (commentEvent)="commentEvent($event)"></app-comment-box>
-      <app-comments-section [categoryId]="categoryId" [postId]="postId" (sendCommentsEvent)="recieveCommentsEvent($event)"></app-comments-section>
+      <app-comment-box *ngIf="authService.isLoggedIn == true && editCommentFlag != true" [categoryId]="categoryId" [postId]="postId" (commentEvent)="commentEvent($event)"></app-comment-box>
+      <app-comment-box-edit *ngIf="authService.isLoggedIn == true && editCommentFlag == true" [categoryId]="categoryId" [postId]="postId" [comment]="comment" (cancelEditEvent)="recieveEditCommentFlag($event)"></app-comment-box-edit>
+      <app-comments-section [categoryId]="categoryId" [postId]="postId" (sendCommentsEvent)="recieveCommentsEvent($event)" (editCommentEvent)="recieveEditCommentFlag($event)"></app-comments-section>
     </div>
     </div>
     </div>

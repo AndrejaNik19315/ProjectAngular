@@ -36,6 +36,8 @@ import { CommentsSectionComponent } from './category/categorypage/post/display-p
 import { CommentBoxComponent } from './category/categorypage/post/display-post/comment-box/comment-box.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EditPostComponent } from './category/categorypage/post/edit-post/edit-post.component';
+import { CommentBoxEditComponent } from './category/categorypage/post/display-post/comment-box-edit/comment-box-edit.component';
 
 
 @NgModule({
@@ -60,7 +62,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     DisplayPostComponent,
     CreatePostComponent,
     CommentsSectionComponent,
-    CommentBoxComponent
+    CommentBoxComponent,
+    EditPostComponent,
+    CommentBoxEditComponent
   ],
   imports: [
     BrowserModule,

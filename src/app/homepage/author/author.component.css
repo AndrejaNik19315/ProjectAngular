@@ -1,0 +1,10 @@
+img{
+    max-height: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.bg-grey{
+    background-color:#D3D3D3;
+}

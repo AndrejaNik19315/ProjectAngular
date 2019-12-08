@@ -38,6 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditPostComponent } from './category/categorypage/post/edit-post/edit-post.component';
 import { CommentBoxEditComponent } from './category/categorypage/post/display-post/comment-box-edit/comment-box-edit.component';
+import { AuthorComponent } from './homepage/author/author.component';
 
 
 @NgModule({
@@ -64,7 +65,8 @@ import { CommentBoxEditComponent } from './category/categorypage/post/display-po
     CommentsSectionComponent,
     CommentBoxComponent,
     EditPostComponent,
-    CommentBoxEditComponent
+    CommentBoxEditComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,

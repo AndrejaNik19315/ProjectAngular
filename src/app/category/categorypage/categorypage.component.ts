@@ -1,5 +1,5 @@
 import { IPopupModal } from './../../shared/interfaces/popup-modal';
-import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -21,14 +21,14 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
   popupTitle: string = "Delete Post";
   popupDescription: string = "This action cannot be reverted, are you sure you wish to proceed?";
 
-  post: any;
-
   categories: Array<any>;
   categoryId: any;
   categoryPath: string;
   paramsSubscription: Subscription;
   categoryName: any;
   postData = Array<any>();
+  post: any;
+  editPostFlag: boolean = false;
 
   constructor(private route: ActivatedRoute, private titleService: Title, private firebaseService: FirebaseService, public authService: AuthService, private spinner: NgxSpinnerService, private modalService: BsModalService) {
     this.titleService.setTitle('Divinity - ' + route.snapshot.params['name'].charAt(0).toUpperCase() + route.snapshot.params['name'].slice(1));
@@ -47,12 +47,12 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
     this.getCategories();
   }
 
-  recievePost($event){
-    this.postData.unshift($event);
-  }
-
   ngOnDestroy(): void {
     this.paramsSubscription.unsubscribe();
+  }
+
+  recievePost($event){
+    this.postData.unshift($event);
   }
 
   getCategories() {
@@ -84,6 +84,11 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
 
   openModal(template: TemplateRef<any>, post) {
     this.modalRef = this.modalService.show(template);
+    this.post = post;
+  }
+
+  editPost(post) {
+    this.editPostFlag = true;
     this.post = post;
   }
 

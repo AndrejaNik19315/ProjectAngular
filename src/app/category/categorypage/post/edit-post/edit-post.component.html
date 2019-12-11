@@ -1,3 +1,20 @@
-<p>
-  edit-post works!
-</p>
+<div class="p-2 clearfix">
+  <form [formGroup]="postForm" (ngSubmit)="tryUpdatePost(postForm.value)">
+    <div class="postForm--body">
+      <input type="text" formControlName="postTitle" placeholder="Title" value="{{post.title}}"/>
+      <input  #file type="file" formControlName="postImage"/>
+      <textarea formControlName="postDescription" value="{{post.description}}"></textarea>
+    </div>
+    <div class="postForm--footer">
+      <span *ngIf="errorMessage != null && errorMessage != ''" class="text-danger">{{errorMessage}}</span>
+      <input [ngClass]="postForm.invalid ? 'btn-disabled' : ''" type="submit" value="Update" [disabled]="postForm.invalid"/><input type="reset" value="Cancel"/>
+    </div>
+  </form>
+</div>
+<ngx-spinner 
+bdColor = "rgba(0,0,0,0.3)"
+size = "medium"
+color = "#333"
+type = "line-scale"
+[fullScreen] = "true">
+<p style="font-size: 20px;">Saving...</p></ngx-spinner>

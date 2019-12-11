@@ -7,7 +7,7 @@
     </div>
     <div class="postForm--footer">
       <span *ngIf="errorMessage != null && errorMessage != ''" class="text-danger">{{errorMessage}}</span>
-      <input [ngClass]="postForm.invalid ? 'btn-disabled' : ''" type="submit" value="Update" [disabled]="postForm.invalid"/><input type="reset" value="Cancel"/>
+      <input [ngClass]="postForm.invalid ? 'btn-disabled' : ''" type="submit" value="Update" [disabled]="postForm.invalid"/><input type="reset" value="Cancel" (click)="cancelUpdatePost(post)"/>
     </div>
   </form>
 </div>

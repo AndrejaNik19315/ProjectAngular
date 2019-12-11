@@ -130,9 +130,9 @@ postCategoryPost(categoryId, values) {
 }
 
 //UPDATE
-updateCategoryPost(categoryId, values){
+updateCategoryPost(categoryId, postId, values){
   return new Promise<any>((resolve, reject) => {
-    this.db.collection('categories').doc(categoryId).update(values)
+    this.db.collection('categories').doc(categoryId).collection('posts').doc(postId).update(values)
     .then(res => resolve(res))
     .catch(error => reject(error));
   });

@@ -11,7 +11,7 @@
         <small>{{ categoryName }} Category</small>
       </h1>
       <app-create-post *ngIf="authService.isLoggedIn === true && editPostFlag !== true" (postEvent)="recievePost($event)" [categoryId]="categoryId"></app-create-post>
-      <app-edit-post *ngIf="authService.isLoggedIn === true && editPostFlag === true" [categoryId]="categoryId" [post]="post"></app-edit-post>
+      <app-edit-post *ngIf="authService.isLoggedIn === true && editPostFlag === true" [categoryId]="categoryId" [post]="post" (postEditEvent)="recievePost($event)" (cancelEditEvent)="recieveEditPostFlag($event)"></app-edit-post>
       <div *ngIf='postData.length == 0' class="posts card card--background-transparent mb-4">
         <hr/>
         <div><h2 class="text-center">No posts as of yet.</h2></div>
@@ -31,13 +31,13 @@
             <a href="user/{{post.uid}}">{{post.displayName}}</a><div *ngIf="authService.isLoggedIn === true && authService.user.uid === post.uid" class="post-options"><button (click)="editPost(post)">Edit</button><button (click)="openModal(template, post)">Delete</button></div>
           </div>
         </div>
-        <ngx-spinner 
+        <!--<ngx-spinner 
         bdColor = "rgba(0,0,0,0.3)"
         size = "medium"
         color = "#333"
         type = "line-scale"
         [fullScreen] = "true">
-        <p style="font-size: 20px;">Removing...</p></ngx-spinner>
+        <p style="font-size: 20px;">Removing...</p></ngx-spinner>-->
       </div>
     </div>
     <!-- Sidebar Widgets Column -->

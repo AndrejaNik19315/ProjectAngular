@@ -51,6 +51,11 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
     this.paramsSubscription.unsubscribe();
   }
 
+  recieveEditPostFlag($event){
+    this.editPostFlag = $event.flag;
+    this.post = $event;
+  }
+
   recievePost($event){
     this.postData.unshift($event);
   }
@@ -89,6 +94,7 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
 
   editPost(post) {
     this.editPostFlag = true;
+    console.log(post);
     this.post = post;
   }
 

@@ -14,7 +14,7 @@ export class CommentBoxEditComponent implements OnInit {
   @Input() categoryId: string;
   @Input() postId: string;
   
-  @Output() commentEditEvent = new EventEmitter<any>();
+  //@Output() commentEditEvent = new EventEmitter<any>();
   @Output() cancelEditEvent = new EventEmitter<any>();
 
   constructor(private firebaseService: FirebaseService) { }

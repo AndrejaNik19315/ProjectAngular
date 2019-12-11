@@ -11,7 +11,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-categorypage',
   templateUrl: './categorypage.component.html',
-  styleUrls: ['./categorypage.component.css', '../../shared/components/modal.css']
+  styleUrls: ['./categorypage.component.css']
 })
 
 export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {

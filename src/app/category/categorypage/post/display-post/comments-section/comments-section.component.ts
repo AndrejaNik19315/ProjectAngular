@@ -7,7 +7,7 @@ import { IPopupModal } from 'src/app/shared/interfaces/popup-modal';
 @Component({
   selector: 'app-comments-section',
   templateUrl: './comments-section.component.html',
-  styleUrls: ['./comments-section.component.css', '../display-post.component.css', '../../../../../shared/components/modal.css'],
+  styleUrls: ['./comments-section.component.css', '../display-post.component.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class CommentsSectionComponent implements OnInit, IPopupModal {

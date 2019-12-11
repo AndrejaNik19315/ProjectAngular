@@ -1,4 +1,4 @@
-export interface PopupModal {
+export interface IPopupModal {
     popupTitle: string;
     popupDescription: string;
 }

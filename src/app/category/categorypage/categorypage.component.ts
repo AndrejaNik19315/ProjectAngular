@@ -1,4 +1,4 @@
-import { PopupModal } from './../../shared/interfaces/popup-modal';
+import { IPopupModal } from './../../shared/interfaces/popup-modal';
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -11,10 +11,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 @Component({
   selector: 'app-categorypage',
   templateUrl: './categorypage.component.html',
-  styleUrls: ['./categorypage.component.css']
+  styleUrls: ['./categorypage.component.css', '../../shared/components/modal.css']
 })
 
-export class CategorypageComponent implements OnInit, OnDestroy, PopupModal {
+export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
   modalRef: BsModalRef;
   template: TemplateRef<any>;
 
@@ -89,7 +89,6 @@ export class CategorypageComponent implements OnInit, OnDestroy, PopupModal {
 
   async tryRemovePost() {
     this.modalRef.hide();
-    console.log(this.post);
     this.spinner.show();
     let flag = true;
 
@@ -97,7 +96,6 @@ export class CategorypageComponent implements OnInit, OnDestroy, PopupModal {
       await this.firebaseService.removeImage(this.post.postPhotoURL)
       .catch(error => {
         flag = false;
-        console.log(error);
       });
     }
 

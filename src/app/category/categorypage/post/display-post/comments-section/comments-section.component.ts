@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, TemplateRef, ViewEncaps
 import { FirebaseService } from 'src/app/core/services/firebase.service';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { PopupModal } from 'src/app/shared/interfaces/popup-modal';
+import { IPopupModal } from 'src/app/shared/interfaces/popup-modal';
 
 @Component({
   selector: 'app-comments-section',
@@ -10,7 +10,7 @@ import { PopupModal } from 'src/app/shared/interfaces/popup-modal';
   styleUrls: ['./comments-section.component.css', '../display-post.component.css', '../../../../../shared/components/modal.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CommentsSectionComponent implements OnInit, PopupModal {
+export class CommentsSectionComponent implements OnInit, IPopupModal {
   modalRef: BsModalRef;
   template: TemplateRef<any>;
 

@@ -7,7 +7,7 @@ import { FirebaseService } from 'src/app/core/services/firebase.service';
 @Component({
   selector: 'app-display-post',
   templateUrl: './display-post.component.html',
-  styleUrls: ['./display-post.component.css', '../../categorypage.component.css']
+  styleUrls: ['./display-post.component.css', '../../categorypage.component.css', '../../../../shared/components/modal.css']
 })
 export class DisplayPostComponent implements OnInit {
   post: any;

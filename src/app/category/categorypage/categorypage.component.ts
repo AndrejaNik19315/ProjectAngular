@@ -94,8 +94,8 @@ export class CategorypageComponent implements OnInit, OnDestroy, IPopupModal {
 
   editPost(post) {
     this.editPostFlag = true;
-    console.log(post);
     this.post = post;
+    window.scrollTo(0, 0);
   }
 
   async tryRemovePost() {

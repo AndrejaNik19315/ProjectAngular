@@ -11,7 +11,7 @@
         <small>{{ categoryName }} Category</small>
       </h1>
       <app-create-post *ngIf="authService.isLoggedIn === true && editPostFlag !== true" (postEvent)="recievePost($event)" [categoryId]="categoryId"></app-create-post>
-      <app-edit-post *ngIf="authService.isLoggedIn === true && editPostFlag === true" [categoryId]="categoryId" [post]="post" (postEditEvent)="recievePost($event)" (cancelEditEvent)="recieveEditPostFlag($event)"></app-edit-post>
+      <app-edit-post *ngIf="authService.isLoggedIn === true && editPostFlag === true" [categoryId]="categoryId" [post]="post" (postEditEvent)="recieveEditPostFlag($event)" (cancelEditEvent)="recieveEditPostFlag($event)"></app-edit-post>
       <div *ngIf='postData.length == 0' class="posts card card--background-transparent mb-4">
         <hr/>
         <div><h2 class="text-center">No posts as of yet.</h2></div>

@@ -37,6 +37,7 @@ export class CommentsSectionComponent implements OnInit, IPopupModal {
   editComment(comment) {
     comment.flag = true;
     this.editCommentEvent.emit(comment);
+    window.scrollTo(0, 0);
   }
 
   openModal(template: TemplateRef<any>, commentUid, commentId) {

@@ -38,7 +38,7 @@ export class EditPostComponent implements OnInit {
   }
 
   async tryUpdatePost(values) {
-    console.log(this.post);
+
     let updateValues: any = {};
     updateValues.description = values.postDescription;
     updateValues.title = values.postTitle;
@@ -47,6 +47,7 @@ export class EditPostComponent implements OnInit {
 
       this.errorMessage = null;
       let flag = true;
+
       this.spinner.show();
 
       if(values.postImage !== null) {
@@ -70,13 +71,12 @@ export class EditPostComponent implements OnInit {
           this.errorMessage = error;
         });
       }
-
+      
       this.firebaseService.updateCategoryPost(this.categoryId, this.post.pid, updateValues)
       .then(res => {
-        console.log(res);
         this.post.description = updateValues.description;
         this.post.title = updateValues.title;
-        this.post.postPhotoURL = updateValues.postPhotoURL !== null ? updateValues.postPhotoURL : this.post.postPhotoURL;
+        this.post.postPhotoURL = (updateValues.postPhotoURL != null) ? updateValues.postPhotoURL : this.post.postPhotoURL;
         this.postEditEvent.emit(this.post);
         this.post = {};
         document.getElementsByTagName("input")[3].click();

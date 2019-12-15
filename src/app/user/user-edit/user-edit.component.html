@@ -9,7 +9,7 @@
         <img *ngIf="imageURL" [src]="imageURL">
         <img *ngIf="user.photoURL != null && user.photoURL != '' && imageURL == null" src="{{user.photoURL}}" alt="avatar.jpg">
         <input #file type="file" name="userAvatar" id="user-image" formControlName="userAvatar" (change)="preview(file.files)">
-        <span *ngIf="updateUserForm.get('userAvatar').dirty && updateUserForm.get('userAvatar').invalid" class="text-danger">Image can be in jpg, jpeg or png format and must be no more than 1mb</span>
+        <span *ngIf="updateUserForm.get('userAvatar').dirty && updateUserForm.get('userAvatar').invalid" class="text-danger">Image can be in jpg, jpeg or png format</span>
       </div>
       <div class="col-xm-12 col-sm-12 col-md-6 col-lg-6 user-info">
         <label for="displayName">Display Name</label>
